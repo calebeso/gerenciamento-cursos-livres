@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AlunoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('layouts.app');
 });
+
+/**
+ * --------------------------------------------------------------------------
+ * Alunos Routes
+ * --------------------------------------------------------------------------
+ * @author Eduardo Rezes
+ * @version 1.0
+ * 
+ * As rotas a seguir são responsáveis por gerenciar os alunos.
+ */
+
+// Lista todos os alunos
+Route::get('/alunos', [AlunoController::class, 'index'])->name('alunos.index');
