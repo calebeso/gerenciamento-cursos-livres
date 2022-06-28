@@ -33,17 +33,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($alunos as $aluno)
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Eduardo Rezes</td>
-                            <td>01/01/2000</td>
-                            <td>00198</td>
-                            <td>Ativo</td>
-                            <td>(45)99999-9999</td>
-                            <td>9.999.999-9</td>
-                            <td>999.999.999-99</td>
+                            <th scope="row">{{ aluno.index }}</th>
+                            <td>{{ aluno->nome }}</td>
+                            <td>{{ aluno->data_nascimento }}</td>
+                            <td>{{ aluno->matricula }}</td>
+                            <td>{{ aluno->status }}</td>
+                            <td>{{ aluno->telefone }}</td>
+                            <td>{{ aluno->rg }}</td>
+                            <td>{{ aluno->cpf }}</td>
                         </tr>
-                        <tr>
+                        @endforeach
+                        <!-- <tr>
                             <th scope="row">2</th>
                             <td>Calebe</td>
                             <td>01/01/2000</td>
@@ -72,7 +74,7 @@
                             <td>(45)99999-9999</td>
                             <td>9.999.999-9</td>
                             <td>999.999.999-99</td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
