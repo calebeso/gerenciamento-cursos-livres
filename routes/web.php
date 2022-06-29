@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Livros\LivroController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlunoController;
 
@@ -42,3 +43,12 @@ Route::get('/alunos/{aluno}', [AlunoController::class, 'show'])->name('alunos.sh
 
 // Mostra o formulário para editar um aluno
 Route::get('/alunos/{aluno}/edit', [AlunoController::class, 'edit'])->name('alunos.edit');
+
+Route::get('/livros', [LivroController::class, 'index'])->name('livro.index');
+
+Route::get('/cadastrar-livro', [LivroController::class, 'create'])->name('livro.create');
+Route::post('/cadastrar-livro', [LivroController::class, 'store'])->name('livro.store');
+Route::get('/editar-livro/{id}', [LivroController::class, 'edit'])->name('livro.edit');
+Route::patch('/atualizar-livro/{id}', [LivroController::class, 'update'])->name('livro.update');
+Route::delete('/excluir-livro/{id}', [LivroController::class, 'delete'])->name('livro.delete');
+
