@@ -34,7 +34,7 @@ Route::get('/alunos', [AlunoController::class, 'index'])->name('alunos.index');
 // Mostra o formulário para criar um novo aluno
 Route::get('/alunos/create', [AlunoController::class, 'create'])->name('alunos.create');
 
-// Salva um novo aluno
+// Salva um novo aluno no banco de dados
 Route::post('/alunos/store', [AlunoController::class, 'store'])->name('alunos.store');
 
 // Mostra um aluno específico
@@ -42,3 +42,6 @@ Route::get('/alunos/{aluno}', [AlunoController::class, 'show'])->name('alunos.sh
 
 // Mostra o formulário para editar um aluno
 Route::get('/alunos/{aluno}/edit', [AlunoController::class, 'edit'])->name('alunos.edit');
+
+// Deleta um aluno
+Route::delete('/alunos/{aluno}', [AlunoController::class, 'destroy'])->name('alunos.destroy');
