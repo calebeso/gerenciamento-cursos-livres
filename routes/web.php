@@ -3,6 +3,7 @@
 use App\Http\Controllers\Livros\LivroController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\Turmas\TurmaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +53,10 @@ Route::get('/editar-livro/{id}', [LivroController::class, 'edit'])->name('livro.
 Route::patch('/atualizar-livro/{id}', [LivroController::class, 'update'])->name('livro.update');
 Route::delete('/excluir-livro/{id}', [LivroController::class, 'delete'])->name('livro.delete');
 
+Route::get('/turmas', [TurmaController::class, 'index'])->name('turma.index');
+
+Route::get('/cadastrar-turma',[TurmaController::class, 'create'])->name('turma.create');
+Route::post('/cadastrar-turma',[TurmaController::class,'store'])->name('turma.store');
+Route::get('/editar-turma',[TurmaController::class,'edit'])->name('turma.edit');
+Route::patch('/atualizar-turma',[TurmaController::class,'update'])->name('turma.update');
+Route::delete('/excluir-turma{id}',[TurmaController::class,'delete'])->name('turma.delete');
