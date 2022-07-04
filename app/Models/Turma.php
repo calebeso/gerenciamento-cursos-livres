@@ -9,6 +9,8 @@ class Turma extends Model
 {
     use HasFactory;
 
+    protected $table = 'turma';
+    
     protected $fillable = [
         'idioma',
         'modalidade',
