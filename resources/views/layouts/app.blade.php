@@ -9,8 +9,7 @@
 
         <!-- Page Content  -->
         <div id="content" class="p-4 p-md-5">
-
-             @include('partials.navbar')
+            @include('partials.navbar')
 
              @yield('content')
         </div>
