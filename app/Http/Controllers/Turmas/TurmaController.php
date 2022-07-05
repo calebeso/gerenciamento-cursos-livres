@@ -43,8 +43,9 @@ class TurmaController extends Controller
         $turma = new Turma; 
         $turma->idioma=$request->idioma;
         $turma->modalidade=$request->modalidade;
+        //TRATAR, virá como Array
         $turma->dias_semana=$request->dias_semana;
-        $turma->horario=$request->horario;
+        $turma->horario=$request->hr_inicio+"/"+$request->hr_termino;
         $turma->user_id=$request->user_id;
         $turma->livro_id=$request->livro_id;
         $turma->status=1;
