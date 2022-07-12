@@ -16,8 +16,19 @@ use App\Http\Controllers\AlunoController;
 */
 
 Route::get('/', function () {
-    return view('layouts.app');
+    return view('auth.login');
 });
+
+/**
+ * --------------------------------------------------------------------------
+ * Login Routes
+ * --------------------------------------------------------------------------
+ * @author João Saratt
+ * @version 1.0
+ * 
+ * As rotas a seguir são responsáveis por gerenciar login.
+ */
+
 
 /**
  * --------------------------------------------------------------------------
@@ -52,3 +63,7 @@ Route::get('/editar-livro/{id}', [LivroController::class, 'edit'])->name('livro.
 Route::patch('/atualizar-livro/{id}', [LivroController::class, 'update'])->name('livro.update');
 Route::delete('/excluir-livro/{id}', [LivroController::class, 'delete'])->name('livro.delete');
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
