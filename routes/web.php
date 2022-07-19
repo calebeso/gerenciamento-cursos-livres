@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\Alunos\AlunoController;
 use App\Http\Controllers\Livros\LivroController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AlunoController;
 
 /*
 |--------------------------------------------------------------------------
