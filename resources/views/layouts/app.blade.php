@@ -5,7 +5,7 @@
 </head>
 <body id="body-pd">
     @include('partials.sidebar')
-
+    
     @include('partials.javascript')
 </body>
 
