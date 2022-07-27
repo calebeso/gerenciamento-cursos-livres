@@ -19,7 +19,6 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">Matricula</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">Status</th>
                     <th scope="col"></th>
@@ -33,8 +32,12 @@
                        # {{ $aluno->id }}
                        </span> 
                     </td>
-                    <td>{{ $aluno->nome }}</td>
-                    <td><span class="badge badge-phil bg-dark">{{ $aluno->matricula }}</span></td>
+                    <td>
+                        {{ $aluno->nome }} <br>
+                    <small>
+                     <span class="badge badge-phil bg-dark">Matrícula:  {{ $aluno->matricula }}</span>
+                    </small>
+                    </td>
                     <td>{{ $aluno->telefone }}</td>
                     <td>
                         <div class="form-check form-switch form-check-inline">

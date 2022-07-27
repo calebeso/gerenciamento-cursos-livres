@@ -4,7 +4,7 @@
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">SISGAP</span> </a>
                 <div class="nav_list">
-                    <a href="#" class="nav_link active">
+                    <a href="#" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i>
                         <span class="nav_name">Dashboard</span>
                     </a>
@@ -16,7 +16,7 @@
                         <i class='bx bx-user nav_icon'></i>
                         <span class="nav_name">Turmas</span>
                     </a>
-                    <a href="{{ route('aluno.index') }}" class="nav_link">
+                    <a href="{{ route('aluno.index') }}" class="nav_link {{ Request::is('alunos') ? 'active' : '' }}">
                         <i class='bx bx-message-square-detail nav_icon'></i>
                         <span class="nav_name">Alunos</span>
                     </a>
@@ -26,7 +26,7 @@
                     </a>
 
                     @role('admin')
-                    <a href="{{ route('user.index') }}" class="nav_link">
+                    <a href="{{ route('user.index') }}" class="nav_link {{ Request::is('usuarios') ? 'active' : '' }}">
                         <i class='bx bx-user nav_icon'></i>
                         <span class="nav_name">Usuários</span>
                     </a>
