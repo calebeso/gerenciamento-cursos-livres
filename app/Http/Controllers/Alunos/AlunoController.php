@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\{Aluno, Responsavel};
 use App\Http\Requests\StoreAlunoRequest;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Controller responsavel pela manipulação de alunos.
@@ -37,23 +38,44 @@ class AlunoController extends Controller
    */
   public function store(Request $request)
   {
-    //dd($request);
+    $rules = [
+      'nome' => 'required|string|max:255',
+      'cpf' => 'required|cpf',
+      'rg'  => 'required',
+      'telefone' => 'required',
+      'data_nascimento' => 'required|date'
+    ];
+
+    $messages = [
+      'nome.required' => 'O campo nome é obrigatório',
+      'cpf.required' => 'O campo CPF é obrigatório',
+      'cpf.cpf' => 'O campo CPF deve ser preenchido com um CPF válido',
+      'rg.required' => 'O campo RG é obrigatório',
+      'telefone.required' => 'O campo telefone é obrigatório',
+      'data_nascimento.required' => 'O campo data de nascimento é obrigatório',
+      'data_nascimento.date' => 'O campo data de nascimento deve ser preenchido com uma data válida',
+    ];
+
+    $validate = Validator::make($request->all(), $rules, $messages);
+
+    if ($validate->fails()) {
+      return redirect()->back()->with('error', $validate->errors()->first());
+    }
+
     $aluno = new Aluno();
     $aluno->nome = $request->nome;
     $aluno->data_nascimento = $request->data_nascimento;
-    $aluno->matricula = 1;
-    $aluno->status = $request->status=="1";
+    $aluno->status = $request->status == "1";
     $aluno->telefone = $request->telefone;
     $aluno->rg = $request->rg;
     $aluno->cpf = $request->cpf;
 
-    
-
     $aluno->save();
+  
     $aluno->matricula = $aluno->id;
     $aluno->update();
 
-    return redirect()->route('alunos.index');
+    return redirect()->route('aluno.index')->with('success', 'Novo aluno cadastrado');
   }
 
   /**
@@ -65,7 +87,7 @@ class AlunoController extends Controller
     $aluno = Aluno::find($id);
     if ($aluno->exists()) {
       return view('alunos.edit')->with('aluno', $aluno);
-    }else{
+    } else {
       // Retornar pagina de listagem com aviso de aluno não encontrado.
     }
   }
@@ -77,19 +99,42 @@ class AlunoController extends Controller
    */
   public function update(Request $request, $id)
   {
-    //Validações
+
+    $rules = [
+      'nome' => 'required|string|max:255',
+      'cpf' => 'required|cpf',
+      'rg'  => 'required',
+      'telefone' => 'required',
+      'data_nascimento' => 'required|date'
+    ];
+
+    $messages = [
+      'nome.required' => 'O campo nome é obrigatório',
+      'cpf.required' => 'O campo CPF é obrigatório',
+      'cpf.cpf' => 'O campo CPF deve ser preenchido com um CPF válido',
+      'rg.required' => 'O campo RG é obrigatório',
+      'telefone.required' => 'O campo telefone é obrigatório',
+      'data_nascimento.required' => 'O campo data de nascimento é obrigatório',
+      'data_nascimento.date' => 'O campo data de nascimento deve ser preenchido com uma data válida',
+    ];
+
+    $validate = Validator::make($request->all(), $rules, $messages);
+
+    if ($validate->fails()) {
+      return redirect()->back()->with('error', $validate->errors()->first());
+    }
+
     $aluno = Aluno::find($id);
+
     if ($aluno->exists()) {
       $id = $request->id;
       $aluno->nome = $request->nome;
       $aluno->data_nascimento = $request->data_nascimento;
-      //$aluno->matricula = renderMatricula($id); //$request->matricula;
-      $aluno->status = $request->status;
       $aluno->telefone = $request->telefone;
       $aluno->rg = $request->rg;
       $aluno->cpf = $request->cpf;
       $aluno->save();
-      return redirect()->route('alunos.index');
+      return redirect()->route('aluno.index')->with('success', 'Aluno atualizado');
     } else {
       //Apresentar pop-pup de erro.
       return view('alunos.edit');
@@ -99,18 +144,24 @@ class AlunoController extends Controller
   public function delete($id)
   {
     $aluno = Aluno::find($id);
+
+    dd($aluno, $id);
     if ($aluno->exists()) {
       $aluno->delete();
-      return redirect()->route('alunos.index');
+      return redirect()->route('aluno.index')->with('success', 'Aluno removido');
     } else {
       //Apresentar pop-pup de erro.
     }
   }
 
-  public function renderMatricula($id)
+  public function updateStatus(Request $request)
   {
-    $matricula = $id + 1;
-    return $matricula; 
+    if($request->ajax())
+    {
+      $aluno = Aluno::findOrFail($request->id);
+      $aluno->status = $request->status;
+      $aluno->save(); 
+      return response()->json(["status" => "success"]);
+    }
   }
- 
 }

@@ -28,12 +28,13 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     Route::patch('/atualizar-livro/{id}', [LivroController::class, 'update'])->name('livro.update');
     Route::delete('/excluir-livro/{id}', [LivroController::class, 'delete'])->name('livro.delete');
     
-    Route::get('/alunos', [AlunoController::class, 'index'])->name('alunos.index');
-    Route::get('/alunos/create', [AlunoController::class, 'create'])->name('alunos.create');
-    Route::post('/alunos/store', [AlunoController::class, 'store'])->name('alunos.store');
-    Route::get('/alunos/{aluno}', [AlunoController::class, 'show'])->name('alunos.show');
-    Route::get('/alunos/{aluno}/edit', [AlunoController::class, 'edit'])->name('alunos.edit');
- 
+    Route::get('/alunos', [AlunoController::class, 'index'])->name('aluno.index');
+    Route::get('/alunos/create', [AlunoController::class, 'create'])->name('aluno.create');
+    Route::post('/alunos/store', [AlunoController::class, 'store'])->name('aluno.store');
+    Route::post('/alunos/atualiza-status', [AlunoController::class, 'updateStatus'])->name('aluno.update-status');
+    Route::get('/alunos/{aluno}/edit', [AlunoController::class, 'edit'])->name('aluno.edit');
+    Route::patch('/alunos/atualizar-aluno/{id}', [AlunoController::class, 'update'])->name('aluno.update');
+    Route::delete('/alunos/excluir-aluno/{id}', [AlunoController::class, 'delete'])->name('aluno.delete');
 });
 
 Auth::routes();
