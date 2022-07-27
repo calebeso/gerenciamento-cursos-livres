@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\Alunos\AlunoController;
 use App\Http\Controllers\Livros\LivroController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\Usuarios\UserController;
+use Illuminate\Support\Facades\Route;
 
 // Rotas de autenticação
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
@@ -35,9 +35,6 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     Route::get('/alunos/{aluno}/edit', [AlunoController::class, 'edit'])->name('alunos.edit');
  
 });
-
-
-
 
 Auth::routes();
 

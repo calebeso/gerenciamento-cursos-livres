@@ -1,85 +1,54 @@
-<!doctype html>
-<html lang="pt-br">
-
-<head>
-    @include('partials.head')
-</head>
-
-<body>
-    <div class="wrapper d-flex align-items-stretch">
-        @include('partials.sidebar')
-
-        <!-- Page Content  -->
-        <div id="content" class="p-4 p-md-5">
-
-            @include('partials.navbar')
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Alunos</h2>
-                    <a href="/alunos/create"><button type="button" class="btn btn-primary">Novo Aluno</button></a>
-                </div>
-                <div class="card-body"></div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Data de Nascimento</th>
-                            <th scope="col">Matricula</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Telefone</th>
-                            <th scope="col">RG</th>
-                            <th scope="col">CPF</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Eduardo Rezes</td>
-                            <td>01/01/2000</td>
-                            <td>00198</td>
-                            <td>Ativo</td>
-                            <td>(45)99999-9999</td>
-                            <td>9.999.999-9</td>
-                            <td>999.999.999-99</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Calebe</td>
-                            <td>01/01/2000</td>
-                            <td>00235</td>
-                            <td>Ativo</td>
-                            <td>(45)99999-9999</td>
-                            <td>9.999.999-9</td>
-                            <td>999.999.999-99</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Joao</td>
-                            <td>08/06/2000</td>
-                            <td>00052</td>
-                            <td>Ativo</td>
-                            <td>(45)99999-9999</td>
-                            <td>9.999.999-9</td>
-                            <td>999.999.999-99</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>Jessica</td>
-                            <td>15/01/2000</td>
-                            <td>00001</td>
-                            <td>Ativo</td>
-                            <td>(45)99999-9999</td>
-                            <td>9.999.999-9</td>
-                            <td>999.999.999-99</td>
-                        </tr>
-                    </tbody>
-                </table>
+@extends('layouts.app')
+@section('content')
+<div class="card">
+    <div class="card-header">
+        <div class="row justify-content-between">
+            <div class="col-4">
+                <h2 class="card-title row-md-10">Alunos</h2>
             </div>
-            @yield('content')
+            <div class="col-4 d-flex justify-content-end">
+                <a href="{{ route('aluno.create') }}" class="btn btn-primary">Novo Aluno</a>
+            </div>
         </div>
     </div>
-    @include('partials.javascript')
-</body>
-
-</html>
+    <div class="table-content">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Data de Nascimento</th>
+                    <th scope="col">Matricula</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($alunos as $key => $aluno)
+                <tr>
+                    <td scope="row">{{ $loop->iteration }}</td>
+                    <td>{{ $aluno->nome }}</td>
+                    <td>{{ $aluno->data_nascimento }}</td>
+                    <td>{{ $aluno->matricula }}</td>
+                    <td>{{ $aluno->status == 1 ? 'Ativo' : 'Inativo' }}</td>
+                    <td>{{ $aluno->telefone }}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-primary" href="{{ route('aluno.edit', $aluno->id) }}"><i class="icofont-ui-edit"></i></a>
+                            <button type="submit" label class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#parentModal"><i class="icofont-group"></i></button>
+                            <form method="post" action="{{ route('aluno.delete', $aluno->id) }}">
+                                @method('delete')
+                                @csrf
+                                <button type="submit" class="btn btn-danger"><i class="icofont-ui-delete"></i> </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @include('alunos.modal.parentsmodal')
+    </div>
+</div>
+@endsection
