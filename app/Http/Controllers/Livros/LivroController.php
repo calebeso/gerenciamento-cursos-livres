@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Livros;
 use App\Http\Controllers\Controller;
 use App\Models\Livro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LivroController extends Controller
 {
@@ -21,13 +22,32 @@ class LivroController extends Controller
 
     public function store(Request $request)
     {   
+        $rules =  [
+            'nome' => 'required',
+            'serie' => 'required',
+            'idioma' => 'required',
+
+        ];
+
+        $messages = [
+            'nome.required' => 'O campo nome é obrigatório',
+            'serie.required' => 'O campo série é obrigatório',
+            'idioma.required' => 'O campo idioma é obrigatório',
+        ];
+
+        $validate = Validator::make($request->all(), $rules, $messages);
+        
+        if($validate->fails()){
+            return redirect()->back()->with('error', $validate->errors()->first());
+        }
+        
         $livro = new Livro; 
         $livro->nome = $request->nome;
         $livro->serie = $request->serie;
         $livro->idioma = $request->idioma;
         $livro->save();
 
-        return view('livros.index');
+        return redirect()->route('livro.index')->with('success', 'Livro criado com sucesso');
     }
 
     public function edit($id)

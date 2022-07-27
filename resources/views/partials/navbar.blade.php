@@ -1,29 +1,21 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
+<header class="header mb-4" id="header">
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
-                        <i class="fa fa-bars"></i>
-                        <span class="sr-only">Toggle Menu</span>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Portfolio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+        <div class="dropdown navbar_img me-1">
+                <a href="#" id="dropdownMenu" data-bs-toggle="dropdown">
+                        <img src="{{ asset('images/profile.jpg')}}" alt="">
+                </a>
+                <ul class="dropdown-menu navbar_menu" aria-labelledby="dropdownMenu">
+                        <li><a class="dropdown-item disabled" href="#">{{ Auth::user()->login }}</a></li>
+                        <form action="{{ url('/logout') }}" method="post" id="logoutForm" style="display: none;">
+                                @csrf
+                                <button type="submit"></button>
+                        </form>
+                        <li>
+                                <a href="#logout" onclick="$('#logoutForm').submit();" class="dropdown-item">
+                                        <i class='bx bx-log-out'></i> Sair
+                                </a>
+                        </li>
+                </ul>
+        </div>
+</header>

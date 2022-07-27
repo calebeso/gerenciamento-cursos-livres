@@ -44,3 +44,6 @@
   </div>
 </div>
 @endsection
+@section('javascript')
+@include('includes.toastr')
+@endsection
