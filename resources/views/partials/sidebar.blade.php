@@ -4,7 +4,7 @@
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">SISGAP</span> </a>
                 <div class="nav_list">
-                    <a href="#" class="nav_link active">
+                    <a href="#" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i>
                         <span class="nav_name">Dashboard</span>
                     </a>
@@ -16,31 +16,36 @@
                         <i class='bx bx-user nav_icon'></i>
                         <span class="nav_name">Turmas</span>
                     </a>
-                    <a href="#" class="nav_link">
+                    <a href="{{ route('aluno.index') }}" class="nav_link {{ Request::is('alunos') ? 'active' : '' }}">
                         <i class='bx bx-message-square-detail nav_icon'></i>
                         <span class="nav_name">Alunos</span>
                     </a>
-                    <a href="{{ route('livro.index') }}" class="nav_link">
-                        <i class='bx bx-book nav_icon'></i>
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-bookmark nav_icon'></i>
                         <span class="nav_name">Livros</span>
                     </a>
 
                     @role('admin')
-                    <a href="{{ route('user.index') }}" class="nav_link">
+                    <a href="{{ route('user.index') }}" class="nav_link {{ Request::is('usuarios') ? 'active' : '' }}">
                         <i class='bx bx-user nav_icon'></i>
                         <span class="nav_name">Usuários</span>
                     </a>
                     @endrole
 
-                <div class="footer">
-                    <p>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>
-                            document.write(new Date().getFullYear());
-                        </script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
                 </div>
-
-            </div>
+            </div> 
+            <form action="{{ url('/logout') }}" method="post" id="logoutForm" style="display: none;">
+                @csrf
+                <button type="submit"></button>
+            </form>
+                <a href="#logout" onclick="$('#logoutForm').submit();" class="nav_link">
+                     <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Sair</span>
+                </a>
         </nav>
+    </div>
+    @endauth
+    <div class="bg-light">
+        <div class="container mt-5" id="main-content">
+            @yield('content')
+        </div>
+    </div>
