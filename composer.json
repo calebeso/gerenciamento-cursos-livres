@@ -13,6 +13,7 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
+        "laravellegends/pt-br-validator": "^9.0",
         "spatie/laravel-permission": "^5.5",
         "symfony/console": "6.0.*",
         "symfony/deprecation-contracts": "3.0.*",
