@@ -28,12 +28,26 @@
                             <th scope="col">Livro</th>
                             <th scope="col">Professor(a)</th>
                             <th scope="col">Dias de aula</th>
-                            <th scope="col">Horário</th>
+                            <th scope="col">Horário início</th>
+                            <th scope="col">Horário término</th>
                             <th scope="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                    @foreach($turmas as $turma)
+                    <tr>
+                        <th scope="row">{{ $turma->id }}</th>
+                        <td>{{ $turma->modalidade }}</td>
+                        <td>{{ $turma->idioma }}</td>
+                        <td>{{ $turma->livros->nome }}</td>
+                        <td>{{ $turma->users->name }}</td>
+                        <td>{{ $turma->dias_semana}}</td>
+                        <td>{{ $turma->hr_inicio }}</td>
+                        <td>{{ $turma->hr_termino }}</td>
+                        <td>{{ $turma->status }}</td>
+                    </tr>
+                    @endforeach
+                        <!--<tr>
                             <th scope="row">1</th>
                             <td>Connections</td>
                             <td>Inglês</td>
@@ -42,7 +56,7 @@
                             <td>Seg/Qua</td>
                             <td>16:00/17:00</td>
                             <td>Ativa</td>
-                        </tr>
+                        </tr>-->
                     </tbody>
                 </table>
             </div>

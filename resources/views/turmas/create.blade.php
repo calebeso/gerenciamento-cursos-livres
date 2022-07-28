@@ -16,6 +16,15 @@
     </div>
     <!--FAZER SELECT IDIOMAS-->
     <div class="form-group">
+        <label for="Professor">Professor(a)</label>
+        <select name="user" class="form-control" id="user">
+            <option value="">---</option>
+            @foreach($users as $user)
+            <option value="{{ $user->id }}">{{ $user->name }}</value>
+            @endforeach
+        </select>
+    </div>
+    <div class="form-group" id="divlivro">
         <label for="Livro">Livro</label>
         <select name="livro" class="form-control" id="livro">
             <option value="">---</option>
@@ -24,7 +33,7 @@
             @endforeach
         </select>
     </div>
-    <div class="form-group">
+    <div class="form-group" id="divserie">
     <label for="serie">Série</label>
     <select name="serie" class="form-control" id="serie">
             <option value="">---</option>
@@ -51,17 +60,6 @@
             <option value="Português">Português para estrangeiros</value>
         </select>
     </div>
-
-    <div class="form-group">
-        <label for="Professor">Professor(a)</label>
-        <select name="user" class="form-control" id="user">
-            <option value="">---</option>
-            @foreach($users as $user)
-            <option value="{{ $user->id }}">{{$user->nome}}</value>
-            @endforeach
-        </select>
-    </div>
-
     <div class="form-group">
         <label for="Dias da semana">Dias da semana</label>
         <fieldset>
@@ -94,4 +92,33 @@
 </div>
 @endsection
 @section('javascript')
+<script>
+$('#hr_inicio').mask('00:00');
+$('#hr_termino').mask('00:00');
+$(document).ready(function(){
+    var modalidade=null
+    $('input:radio[name=modalidade]').change(function() {
+        modalidade=this.value
+        //alert('Você selecionou a modalidade: '+modalidade);
+        if(modalidade==="interactive"){
+            $('#divlivro').hide()
+            $('#divserie').hide()
+            $('#livro').value=null
+            $('#serie').value=null
+            /*var reslivro=$('#livro').value;
+            var resserie=$('#serie').value;
+            alert('O livro foi alterado para: '+reslivro+' e a série para: '+resserie);*/
+        }else{
+            if(modalidade==="connections"){
+                $('#divlivro').show()
+                $('#divserie').show()
+            }
+        }
+    });
+    /*$('#buscaaluno').autocomplete({
+        source: ['Alice','Bruno','Camila']
+    });*/
+});
+    
+</script>
 @endsection

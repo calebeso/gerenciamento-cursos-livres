@@ -40,18 +40,29 @@ class TurmaController extends Controller
     
     public function store(Request $request)
     {
+        dd($request->all());
         $turma = new Turma; 
         $turma->idioma=$request->idioma;
         $turma->modalidade=$request->modalidade;
         //TRATAR, virá como Array
         $turma->dias_semana=$request->dias_semana;
-        $turma->horario=$request->hr_inicio+"/"+$request->hr_termino;
+        $turma->hr_inicio=$request->hr_inicio;
+        $turma->hr_termino=$request->hr_termino;
+        
+        $user=User::find($request->user);
+        /*if(!empty($request->livro)){
+            $livro=
+
+        }*/
+        
+
         $turma->user_id=$request->user_id;
         $turma->livro_id=$request->livro_id;
         $turma->status=1;
         $turma->save();
     
-        return view('turmas.index');
+        return route('turmas.edit',$turma->id);
+        //return view('turmas.index');
     }
     
         public function edit($id)

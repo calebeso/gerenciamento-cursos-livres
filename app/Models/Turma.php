@@ -15,7 +15,8 @@ class Turma extends Model
         'idioma',
         'modalidade',
         'dias_semana',
-        'horario',
+        'hr_inicio',
+        'hr_termino',
         'status',
         'livro_id',
         'user_id'
@@ -25,7 +26,9 @@ class Turma extends Model
     public function livros(){
         return $this->hasMany(Livro::class);
     }
-
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
     //setando relacionamento muitos para muitos
     public function alunos()
     {

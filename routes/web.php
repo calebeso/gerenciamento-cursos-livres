@@ -41,7 +41,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
     Route::get('/cadastrar-turma',[TurmaController::class, 'create'])->name('turma.create');
     Route::post('/cadastrar-turma',[TurmaController::class,'store'])->name('turma.store');
-    Route::get('/editar-turma',[TurmaController::class,'edit'])->name('turma.edit');
+    Route::get('/editar-turma/{id}',[TurmaController::class,'edit'])->name('turma.edit');
     Route::patch('/atualizar-turma',[TurmaController::class,'update'])->name('turma.update');
     Route::delete('/excluir-turma{id}',[TurmaController::class,'delete'])->name('turma.delete');
 });
