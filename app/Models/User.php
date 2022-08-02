@@ -50,6 +50,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function turmas(){
+        return $this->hasMany(Turma::class,'user_id','id');
+    }
     protected function password(): Attribute
     {
         return Attribute::make(

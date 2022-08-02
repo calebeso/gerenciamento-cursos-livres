@@ -40,7 +40,7 @@ class TurmaController extends Controller
     
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         $turma = new Turma; 
         $turma->idioma=$request->idioma;
         $turma->modalidade=$request->modalidade;
@@ -50,18 +50,19 @@ class TurmaController extends Controller
         $turma->hr_termino=$request->hr_termino;
         
         $user=User::find($request->user);
-        /*if(!empty($request->livro)){
-            $livro=
-
-        }*/
-        
-
-        $turma->user_id=$request->user_id;
-        $turma->livro_id=$request->livro_id;
+        $turma->users()->associate($user);
+       /*if(!empty($request->livro)){
+            $livro=Livro::find($request->livro);
+        }else{
+            $livro=NULL;
+        }
+        $turma->livros()->associate($livro);*/
+        //$turma->user_id=$request->user_id;
+        //$turma->livro_id=$request->livro_id;
         $turma->status=1;
         $turma->save();
     
-        return route('turmas.edit',$turma->id);
+        return redirect()->route('turma.edit',$turma->id);
         //return view('turmas.index');
     }
     

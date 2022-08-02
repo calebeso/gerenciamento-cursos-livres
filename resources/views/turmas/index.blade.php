@@ -39,7 +39,7 @@
                         <th scope="row">{{ $turma->id }}</th>
                         <td>{{ $turma->modalidade }}</td>
                         <td>{{ $turma->idioma }}</td>
-                        <td>{{ $turma->livros->nome }}</td>
+                        <td>ID DO LIVRO</td>
                         <td>{{ $turma->users->name }}</td>
                         <td>{{ $turma->dias_semana}}</td>
                         <td>{{ $turma->hr_inicio }}</td>
