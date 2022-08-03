@@ -101,7 +101,7 @@ class LivroController extends Controller
         
         if($livro->exists()){
             $livro->delete();
-            return redirect()->route('livro.index')->with('success', 'Livro removido com sucesso');;;
+            return redirect()->route('livro.index')->with('success', 'Livro removido com sucesso');
         }else{
             return redirect()->route('livro.index')->with('error', 'Livro não encontrado');
         }
