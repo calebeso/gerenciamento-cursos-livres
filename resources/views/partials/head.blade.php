@@ -3,6 +3,9 @@
 
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
+<!-- Favicon --> 
+<link rel="icon" href="{{ asset('images/favicon.ico') }}">
+
 <!-- Boxicons -->
 <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
