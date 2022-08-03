@@ -41,15 +41,13 @@
             <a href="{{ route('user.edit', $user->id ) }}" class="edit-icon me-1">
               <i class="icofont-ui-edit"></i>Editar
             </a>
-            <form method="post" action="{{ route('user.delete', $user->id ) }}" id="excluir" style="display: none;">
-              @method('delete')
+            <form class="d-inline-block" method="POST" action="{{ route('user.delete', $user->id ) }}">
               @csrf
-              <button type="submit">
+              @method('DELETE')
+              <button id="excluir">
+                <a class="remove-icon"><i class='icofont-ui-delete'></i>Excluir</a>
               </button>
             </form>
-            <a href="#excluir" class="remove-icon" onclick="$('#excluir').submit();">
-             <i class='icofont-ui-delete'></i>Excluir
-            </a>
           </td>
         </tr>
         @endforeach

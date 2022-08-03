@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Alunos\AlunoController;
 use App\Http\Controllers\Livros\LivroController;
+use App\Http\Controllers\Licoes\LicaoController;
 use App\Http\Controllers\Usuarios\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Turmas\TurmaController;
@@ -29,6 +30,12 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     Route::patch('/atualizar-livro/{id}', [LivroController::class, 'update'])->name('livro.update');
     Route::delete('/excluir-livro/{id}', [LivroController::class, 'delete'])->name('livro.delete');
     
+    Route::get('/livros/{id}/licoes', [LicaoController::class, 'index'])->name('licoes.index');
+    Route::get('/livros/{id}/editar-licao/{licao}', [LicaoController::class, 'edit'])->name('licoes.edit');
+    Route::post('/livros/{id}/cadastrar-licao', [LicaoController::class, 'store'])->name('licoes.create');
+    Route::patch('/livros/{id}/atualizar-licao/{licao}', [LicaoController::class, 'update'])->name('licoes.update');
+    Route::delete('/livros/{id}/excluir-licao/{licao}', [LicaoController::class, 'delete'])->name('licoes.delete');
+
     Route::get('/alunos', [AlunoController::class, 'index'])->name('aluno.index');
     Route::get('/alunos/create', [AlunoController::class, 'create'])->name('aluno.create');
     Route::post('/alunos/store', [AlunoController::class, 'store'])->name('aluno.store');

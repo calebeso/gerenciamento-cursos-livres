@@ -28,15 +28,15 @@
                 @foreach ($alunos as $aluno)
                 <tr>
                     <td scope="row">
-                       <span class="badge badge-phil bg-dark">
-                       # {{ $aluno->id }}
-                       </span> 
+                        <span class="badge badge-phil bg-dark">
+                            # {{ $aluno->id }}
+                        </span>
                     </td>
                     <td>
                         {{ $aluno->nome }} <br>
-                    <small>
-                     <span class="badge badge-phil bg-dark">Matrícula:  {{ $aluno->matricula }}</span>
-                    </small>
+                        <small>
+                            <span class="badge badge-phil bg-dark">Matrícula: {{ $aluno->matricula }}</span>
+                        </small>
                     </td>
                     <td>{{ $aluno->telefone }}</td>
                     <td>
@@ -50,15 +50,13 @@
                         <a href="{{ route('aluno.edit', $aluno->id ) }}" class="edit-icon me-1">
                             <i class="icofont-ui-edit"></i>Editar
                         </a>
-                        <form method="post" action="{{ route('aluno.delete', $aluno->id ) }}" id="excluir" style="display: none;">
-                            @method('delete')
+                        <form class="d-inline-block" method="POST" action="{{ route('aluno.delete', $aluno->id ) }}">
                             @csrf
-                            <button type="submit">
+                            @method('DELETE')
+                            <button id="excluir">
+                                <a class="remove-icon"><i class='icofont-ui-delete'></i>Excluir</a>
                             </button>
                         </form>
-                        <a href="#excluir" class="remove-icon" onclick="$('#excluir').submit();">
-                            <i class='icofont-ui-delete'></i>Excluir
-                        </a>
                     </td>
                 </tr>
                 @endforeach
@@ -72,38 +70,37 @@
 <script>
     $(document).ready(function() {
         $('#alunos').DataTable({
-          "info": false,
-          "bPaginate": true,
-          "pagingType" : 'numbers',
-          "bLengthChange": false,
-          "language": {
-            "emptyTable": "Nenhum registro encontrado",
-            "search": "Procurar"
-          },
+            "info": false,
+            "bPaginate": true,
+            "pagingType": 'numbers',
+            "bLengthChange": false,
+            "language": {
+                "emptyTable": "Nenhum registro encontrado",
+                "search": "Procurar"
+            },
         });
-      });
+    });
 
-      $('input[name=status]').change(function() {
-        var status = $(this).prop('checked') == true ? 1 : 0; 
+    $('input[name=status]').change(function() {
+        var status = $(this).prop('checked') == true ? 1 : 0;
         var id = $(this).val();
         $.ajax({
-            type : 'POST', 
-            url : "{{ route('aluno.update-status') }}",
-            dataType : 'JSON',
-            data : {
+            type: 'POST',
+            url: "{{ route('aluno.update-status') }}",
+            dataType: 'JSON',
+            data: {
                 "_token": "{{ csrf_token() }}",
-                "id" : id,
-                "status" : status 
+                "id": id,
+                "status": status
             },
-            success: function(response){
-                if(response.status == 'success'){
+            success: function(response) {
+                if (response.status == 'success') {
                     toastr.success('Aluno atualizado', 'Sucesso!');
-                }else{
+                } else {
                     toastr.info('Erro ao atualizar', 'Oooops!');
                 }
             },
-        }
-        )
+        })
     });
 </script>
 </script>

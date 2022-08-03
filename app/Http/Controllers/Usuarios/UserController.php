@@ -105,8 +105,11 @@ class UserController extends Controller
     public function delete($id)
     {
         $user = User::findOrFail($id);
-        $user->delete();
-
-        return redirect('/usuarios')->with('success', 'Usuário removido');
+        
+        if($user->exists())
+        {
+            $user->delete();
+            return redirect('/usuarios')->with('success', 'Usuário removido');
+        }
     }
 }

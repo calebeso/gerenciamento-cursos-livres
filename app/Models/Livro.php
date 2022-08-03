@@ -18,7 +18,7 @@ class Livro extends Model
     ];
 
     public function licoes(){
-        return $this->belongsTo(Licao::class);
+        return $this->hasMany(Licao::class, 'livro_id', 'id');
     }
 
     public function alunos()

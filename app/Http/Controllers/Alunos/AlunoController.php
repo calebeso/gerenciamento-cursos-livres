@@ -71,7 +71,7 @@ class AlunoController extends Controller
     $aluno->cpf = $request->cpf;
 
     $aluno->save();
-  
+
     $aluno->matricula = $aluno->id;
     $aluno->update();
 
@@ -145,7 +145,6 @@ class AlunoController extends Controller
   {
     $aluno = Aluno::find($id);
 
-    dd($aluno, $id);
     if ($aluno->exists()) {
       $aluno->delete();
       return redirect()->route('aluno.index')->with('success', 'Aluno removido');
@@ -156,11 +155,10 @@ class AlunoController extends Controller
 
   public function updateStatus(Request $request)
   {
-    if($request->ajax())
-    {
+    if ($request->ajax()) {
       $aluno = Aluno::findOrFail($request->id);
       $aluno->status = $request->status;
-      $aluno->save(); 
+      $aluno->save();
       return response()->json(["status" => "success"]);
     }
   }
