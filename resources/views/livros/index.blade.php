@@ -1,33 +1,35 @@
 @extends('layouts.app')
 @section('content')
 <div class="row align-items-center">
-    <div class="col">
-        <div class="my-4">
-            <h3>Livros</h3>
-        </div>
+  <div class="col">
+    <div class="my-4">
+      <h3>Livros</h3>
     </div>
-    <div class="col">
+  </div>
+  <div class="col">
     <a href="{{ route('livro.create') }}">
-          <button class="btn btn-success float-end">Novo Livro</button>
-        </a>
-    </div>
+      <button class="btn btn-success float-end">Novo Livro</button>
+    </a>
+  </div>
 </div>
 <div class="card">
   <div class="card-body">
     <table class="table" id="livros">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col"></th>
           <th scope="col">Nome</th>
           <th scope="col">Série</th>
           <th scope="col">Idioma</th>
-          <th scope="col">Ações</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         @foreach($livros as $livro)
         <tr>
-          <th scope="row">{{ $livro->id }}</th>
+          <td>
+            <span class="badge rounded-pill bg-dark">#{{ $livro->id }}</span>
+          </td>
           <td>{{ $livro->nome }}</td>
           <td>{{ $livro->serie }}</td>
           <td>{{ $livro->idioma }}</td>
@@ -35,14 +37,15 @@
             <a href="{{ route('livro.edit', $livro->id ) }}" class="edit-icon me-1">
               <i class="icofont-ui-edit"></i>Editar
             </a>
-            <form method="post" action="{{ route('livro.delete', $livro->id ) }}" id="excluir" style="display: none;">
-              @method('delete')
+            <form class="d-inline-block" method="POST" action="{{ route('livro.delete', $livro->id ) }}">
               @csrf
-              <button type="submit">
+              @method('DELETE')
+              <button id="excluir">
+                <a class="remove-icon"><i class='icofont-ui-delete'></i>Excluir</a>
               </button>
             </form>
-            <a href="#excluir" class="remove-icon" onclick="$('#excluir').submit();">
-             <i class='icofont-ui-delete'></i>Excluir
+            <a href="{{ route('licoes.index', $livro->id )}}" class="licoes-icon me-1">
+              <i class="icofont-black-board"></i>Lições
             </a>
           </td>
         </tr>
@@ -58,7 +61,7 @@
     $('#livros').DataTable({
       "info": false,
       "bPaginate": true,
-      "pagingType" : 'numbers',
+      "pagingType": 'numbers',
       "bLengthChange": false,
       "language": {
         "emptyTable": "Nenhum registro encontrado",
