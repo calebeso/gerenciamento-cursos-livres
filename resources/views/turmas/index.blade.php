@@ -31,6 +31,7 @@
                             <th scope="col">Horário início</th>
                             <th scope="col">Horário término</th>
                             <th scope="col">Status</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,6 +46,18 @@
                         <td>{{ $turma->hr_inicio }}</td>
                         <td>{{ $turma->hr_termino }}</td>
                         <td>{{ $turma->status }}</td>
+                        <td>
+                            <a href="{{ route('turma.edit', $turma->id ) }}">
+                                <i class="icofont-ui-edit"></i>
+                            </a>
+                            <form method="post" action="{{ route('turma.delete', $turma->id ) }}">
+                            @method('delete')
+                            @csrf
+                                <button type="submit">
+                                    <i class="icofont-ui-delete"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                         <!--<tr>
