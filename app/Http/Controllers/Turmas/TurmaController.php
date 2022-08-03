@@ -102,9 +102,10 @@ class TurmaController extends Controller
             /*Como fazer a validação pelo laravel se a tabela composta Turmas_aluno (?) não configura um model e o aluno não possui atributo id_turma(s)?
             RESOLVER DEPOIS
             */
-            $alunos=Aluno::findAll();
+            //$alunos=Aluno::findAll();
 
-            if($turma->exists() && $turma->alunos()){
+            //if($turma->exists() && $turma->alunos()){
+            if($turma->exists()){
                 $turma->delete();
                 return redirect()->route('turma.index');
             }else{
