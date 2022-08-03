@@ -4,27 +4,29 @@
     --main-color-hover: #01233d;
     --delete-color: #F4485E;
     --delete-color-hover: #e92a44;
+    --main-font: 'Poppins', sans-serif;
 }
 
 /* Navbar */
 
-.navbar_img{
+.navbar_img {
     width: 35px;
     height: 35px;
     border-radius: 50%;
 }
-.navbar_img img{
+
+.navbar_img img {
     width: 40px
 }
 
-.navbar_menu{
-    border-radius: 0.75rem; 
+.navbar_menu {
+    border-radius: 0.75rem;
 }
 
 /* Sessão de Conteudos */
 
 #main-content {
-    font-family: 'Poppins', sans-serif !important;
+    font-family: var(--main-font) !important;
     font-size: 12px !important;
     font-weight: 600;
     color: rgb(55 65 81);
@@ -95,4 +97,25 @@ input[type="search"]:focus-visible {
 
 .remove-icon:hover {
     color: var(--delete-color);
+}
+
+.licoes-icon {
+    color: var(--main-color);
+}
+
+.licoes-icon:hover {
+    color: var(--main-color);
+}
+
+.toast{
+    font-family: var(--main-font) !important;
+}
+
+#excluir{
+    background: none;
+    color: inherit;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
 }

@@ -20,8 +20,8 @@
                         <i class='bx bx-message-square-detail nav_icon'></i>
                         <span class="nav_name">Alunos</span>
                     </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-bookmark nav_icon'></i>
+                    <a href="{{ route('livro.index') }}" class="nav_link {{ Request::is('livros') ? 'active' : '' }}">
+                        <i class='bx bxs-book nav_icon'></i>
                         <span class="nav_name">Livros</span>
                     </a>
 
@@ -44,8 +44,8 @@
         </nav>
     </div>
     @endauth
-    <div class="bg-light">
-        <div class="container mt-5" id="main-content">
+    <div>
+        <div class="container-fluid mt-5" id="main-content">
             @yield('content')
         </div>
     </div>
