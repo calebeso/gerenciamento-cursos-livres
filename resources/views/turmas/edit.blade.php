@@ -4,13 +4,14 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('turma.index') }}">Turmas /</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Editar turma #{{ $turma->id }} [{{ $turma->modalidade }} - {{ $turma->dias_semana }}]
+            <li class="breadcrumb-item active" aria-current="page">Editar turma #{{ $turma->id }}
             </li>
         </ol>
     </nav>
 </div>
 <div class="my-4">
-    <h3>Editar turma</h3>
+    <h3>Dados da turma</h3>
+    <button><i class="icofont-ui-edit" id="btn_editar_turma"></i></button>
 </div>
 <div class="card">
     <div class="card-body">
@@ -26,20 +27,26 @@
         {{ $turma->modalidade==="interactive" ? 'checked' : '' }}>>
         <label for="Interactive">Interactive</label>
     </div>
-<div class="row my-4">
-    <div class="d-flex justify-content-start">
-        <button type="submit" class="btn btn-success me-1">
-            {{ __('Salvar') }}
-        </button>
-        <button class="btn btn-danger">
-            {{ __('Cancelar') }}
-        </button>
+    <div class="row my-4">
+        <div class="d-flex justify-content-start">
+            <button type="submit" class="btn btn-success me-1">
+                {{ __('Salvar') }}
+            </button>
+            <button class="btn btn-danger">
+                {{ __('Cancelar') }}
+            </button>
+        </div>
     </div>
-</div>
 </form>
 @endsection
 @section('javascript')
 @include('includes.toastr')
+<div class="card-body">
+    <div class="my-4">
+        <h3>Lista de alunos</h3>
+        <button><i class="icofont-ui-edit" id="btn_editar_lista_alunos"></i></button>
+    </div>
+</div>
 <script>
 $('#hr_inicio').mask('00:00');
 $('#hr_termino').mask('00:00');

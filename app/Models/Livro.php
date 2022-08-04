@@ -30,4 +30,7 @@ class Livro extends Model
     {
         return $this->belongsTo(HoraAula::class);
     }
+    public function turmas(){
+        return $this->hasMany(Turma::class,'turma_id','id');
+    }
 }

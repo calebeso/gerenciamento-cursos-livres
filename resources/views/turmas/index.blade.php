@@ -40,12 +40,17 @@
                         <th scope="row">{{ $turma->id }}</th>
                         <td>{{ $turma->modalidade }}</td>
                         <td>{{ $turma->idioma }}</td>
-                        <td>ID DO LIVRO</td>
+                        <td>
+                            {{ $turma->livros == NULL ? ' ' : $turma->livros->nome }}
+                            
+                        </td>
                         <td>{{ $turma->users->name }}</td>
                         <td>{{ $turma->dias_semana}}</td>
                         <td>{{ $turma->hr_inicio }}</td>
                         <td>{{ $turma->hr_termino }}</td>
-                        <td>{{ $turma->status }}</td>
+                        <td>{{ $turma->status == 1 ? 'Em andamento' : 'Encerrada' }}
+
+                        </td>
                         <td>
                             <a href="{{ route('turma.edit', $turma->id ) }}">
                                 <i class="icofont-ui-edit"></i>

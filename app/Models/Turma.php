@@ -24,7 +24,7 @@ class Turma extends Model
 
     //setando relacionamento
     public function livros(){
-        return $this->hasMany(Livro::class);
+        return $this->belongsTo(Livro::class,'livro_id','id');
     }
     public function users(){
         return $this->belongsTo(User::class, 'user_id','id');

@@ -51,12 +51,13 @@ class TurmaController extends Controller
         
         $user=User::find($request->user);
         $turma->users()->associate($user);
-       /*if(!empty($request->livro)){
+        $livro=new Livro;
+       if(!empty($request->livro)){
             $livro=Livro::find($request->livro);
         }else{
             $livro=NULL;
         }
-        $turma->livros()->associate($livro);*/
+        $turma->livros()->associate($livro);
         //$turma->user_id=$request->user_id;
         //$turma->livro_id=$request->livro_id;
         $turma->status=1;

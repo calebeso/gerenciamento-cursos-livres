@@ -9,9 +9,9 @@
     @csrf
     <div class="form-group">
         <b><label for="Modalidade">Modalidade</label><br></b>
-        <input type="radio" name="modalidade" id="modalidade" value="connections">
+        <input type="radio" name="modalidade" id="modalidade" value="Connections">
         <label for="Connections">Connections</label>
-        <input type="radio" name="modalidade" id="modalidade" value="interactive">
+        <input type="radio" name="modalidade" id="modalidade" value="Interactive">
         <label for="Interactive">Interactive</label>
     </div>
     <!--FAZER SELECT IDIOMAS-->
@@ -29,11 +29,11 @@
         <select name="livro" class="form-control" id="livro">
             <option value="">---</option>
             @foreach($livros as $livro)
-            <option value="{{ $livro->id }}">{{ $livro->nome }}({{ $livro->serie }})</value>
+            <option value="{{ $livro->id }}">{{ $livro->nome }} ({{ $livro->serie }})</value>
             @endforeach
         </select>
     </div>
-    <div class="form-group" id="divserie">
+    <!--<div class="form-group" id="divserie">
     <label for="serie">Série</label>
     <select name="serie" class="form-control" id="serie">
             <option value="">---</option>
@@ -45,7 +45,7 @@
             <option value="Idiomas">Idiomas</value>
             <option value="Outra">Outra</value>
         </select>
-    </div>
+    </div>-->
     <div class="form-group">
         <label for="Idioma">Idioma</label>
         <select name="idioma" class="form-control" id="idioma">
