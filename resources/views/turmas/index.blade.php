@@ -52,16 +52,18 @@
 
                         </td>
                         <td>
-                            <a href="{{ route('turma.edit', $turma->id ) }}">
-                                <i class="icofont-ui-edit"></i>
+                            <a href="{{ route('turma.edit', $turma->id ) }}" class="edit-icon me-1">
+                                <i class="icofont-navigation-menu">Mais opções</i>
                             </a>
-                            <form method="post" action="{{ route('turma.delete', $turma->id ) }}">
-                            @method('delete')
-                            @csrf
-                                <button type="submit">
-                                    <i class="icofont-ui-delete"></i>
+                            <form class="d-inline-block" method="POST" action="{{ route('turma.delete', $turma->id ) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button id="excluir">
+                                    <a class="remove-icon"><i class='icofont-ui-delete'></i>Excluir</a>
                                 </button>
                             </form>
+                            <a href="#" class="edit-icon me-1" style="color:#02b6bf;">
+                            <i class="icofont-paper"> Diários de aula</i>
                         </td>
                     </tr>
                     @endforeach
