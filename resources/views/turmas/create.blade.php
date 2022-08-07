@@ -100,7 +100,7 @@ $(document).ready(function(){
     $('input:radio[name=modalidade]').change(function() {
         modalidade=this.value
         //alert('Você selecionou a modalidade: '+modalidade);
-        if(modalidade==="interactive"){
+        if(modalidade==="Interactive"){
             $('#divlivro').hide()
             $('#divserie').hide()
             $('#livro').value=null
@@ -109,15 +109,16 @@ $(document).ready(function(){
             var resserie=$('#serie').value;
             alert('O livro foi alterado para: '+reslivro+' e a série para: '+resserie);*/
         }else{
-            if(modalidade==="connections"){
+            if(modalidade==="Connections"){
                 $('#divlivro').show()
                 $('#divserie').show()
             }
         }
     });
-    /*$('#buscaaluno').autocomplete({
-        source: ['Alice','Bruno','Camila']
-    });*/
+
+    //------------------------------------------------------------------------------
+    //FUNÇÃO PARA CONCATENAR DIAS DA SEMANA NUMA VARIÁVEL
+    
 });
     
 </script>
