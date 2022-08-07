@@ -12,8 +12,8 @@
                         <i class='bx bx-user nav_icon'></i>
                         <span class="nav_name">Diário de Aula</span>
                     </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-user nav_icon'></i>
+                    <a href="{{ route('turma.index') }}" class="nav_link {{ Request::is('turmas') ? 'active' : '' }}">
+                        <i class='icofont-group'></i>
                         <span class="nav_name">Turmas</span>
                     </a>
                     <a href="{{ route('aluno.index') }}" class="nav_link {{ Request::is('alunos') ? 'active' : '' }}">
