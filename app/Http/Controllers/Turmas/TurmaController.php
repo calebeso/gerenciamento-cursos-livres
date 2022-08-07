@@ -70,9 +70,16 @@ class TurmaController extends Controller
         public function edit($id)
         {
             $turma = Turma::find($id);
+            $users=User::all();
+            /*Verificar aqui com um for each se o status do user é inativo. Se for, não acrescentar no select*/
+            $livros=Livro::all();
+
+            //RETORNANDO MAIS DE UM VETOR USANDO COMPACT
+            
             
             if($turma->exists()){
-                return view('turmas.edit')->with('turma' , $turma);
+                return view('turmas.edit',compact('turma','users','livros'));
+                //return view('turmas.edit')->with('turma' , $turma);
             }else{
                 // retorna página de listagem com aviso de turma não encontrado na base
             }
