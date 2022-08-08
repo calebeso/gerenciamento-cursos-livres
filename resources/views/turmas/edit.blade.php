@@ -23,16 +23,17 @@
         @csrf
         <div class="row">
             <div class="form-group">
-            <div class="col-md-2">
-                <label for="Professor">Professor(a)</label>
-                <select name="user" class="form-control" id="user">
-                    <option value="">---</option>
-                    @foreach($users as $user)
-                    <option value="{{ $user->id }}" {{$turma->users->id===$user->id ? 'selected':''}}>
-                        {{ $user->name }}
-                    </option>
-                    @endforeach
-                </select>
+                <div class="col-md-2">
+                    <label for="Professor">Professor(a)</label>
+                    <select name="user" class="form-control" id="user">
+                        <option value="">---</option>
+                        @foreach($users as $user)
+                        <option value="{{ $user->id }}" {{$turma->users->id===$user->id ? 'selected':''}}>
+                            {{ $user->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             <div class="col-md-2" id="divlivro">
                 <label for="inputLivro" class="form-label mt-4 mb-2">Livro</label>
@@ -52,6 +53,21 @@
             <label for="inputModalidade" class="form-label mt-4 mb-2">Modalidade:</label> {{ $turma->modalidade }}<br>
         </div>
     </div>
+    <div class="card-body">
+        <form method="POST" action="#">
+            <div class="my-4">
+                <h3>Lista de alunos</h3>
+                <a href="#">
+                    <i class="icofont-ui-edit" id="btn_editar_lista_alunos" style="font-size:14px;"> Editar</i>
+                </a>
+                <input type="text" class="form-control @error('buscaaluno') is-invalid @enderror" id="buscaaluno" name="buscaaluno" placeholder="Procurar aluno(a)"/>
+                <!--<button><i class="icofont-ui-edit" id="btn_editar_lista_alunos"></i></button>-->
+                {{ csrf_field() }}
+                <!--Campo oculto que lida com hash de exceções (?)-->
+                <div id="listaAlunos"></div>
+            </div>
+        </form>
+    </div>
     <div class="row my-4">
         <div class="d-flex justify-content-start">
             <button type="submit" class="btn btn-success me-1">
@@ -66,15 +82,6 @@
 @endsection
 @section('javascript')
 @include('includes.toastr')
-<div class="card-body">
-    <div class="my-4">
-        <h3>Lista de alunos</h3>
-        <a href="#">
-            <i class="icofont-ui-edit" id="btn_editar_lista_alunos" style="font-size:14px;"> Editar</i>
-        </a>
-        <!--<button><i class="icofont-ui-edit" id="btn_editar_lista_alunos"></i></button>-->
-    </div>
-</div>
 <script>
 $('#hr_inicio').mask('00:00');
 $('#hr_termino').mask('00:00');
@@ -92,6 +99,22 @@ $(document).ready(function(){
                 $('#divlivro').show()
                 $('#divserie').show()
             }
+        }
+    });
+    //TESTE AUTOCOMPLETE
+    $('#buscaaluno').keyup(function(){
+        var query=$(this).val();
+        if(query!=''){
+                var _token =$('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{ route('autocomplete.fetch') }}",
+                    method: "POST",
+                    data:{query:query, _token:_token},
+                    success:function(data){
+                        $('#listaAlunos').fadeIn();
+                        $('#listaAlunos').html(data);
+                    }
+                });
         }
     });
 });
