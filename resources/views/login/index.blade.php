@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="pt-br">
-
+<link rel="stylesheet" href="{{asset('css/app.css')}}">
 <body>
 <form method="post">
 @csrf

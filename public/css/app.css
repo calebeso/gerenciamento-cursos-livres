@@ -96,3 +96,52 @@ input[type="search"]:focus-visible {
 .remove-icon:hover {
     color: var(--delete-color);
 }
+
+.col-md-8 {
+    color: var(--main-color);
+
+}
+
+
+.bg-light {
+
+    background-color: #ffffff!important;
+}
+
+
+.card.customCard{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+.card-header.customCardHeader {
+    background-color: var(--main-color);
+    color: white;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 1.2rem;
+    font-size: 18px;
+}
+
+.card-body.customCardBody {
+    padding: 4rem;
+    font-size: 14px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.btn-primary {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
+
+.row.mb-0.custom {
+    padding-top: 2rem;
+}
+.container.customContainer{
+    padding-right: 8rem;
+}
+
+.row.mb-3.custom{
+    padding-top: 1rem;
+}
