@@ -52,12 +52,14 @@
                         </div>
 
                         <div class="row mb-0 custom">
-                            <div class="col-2 offset-md-4 login">
+                            <div class="login row">
                                 <button type="submit" class="btn btn-primary custom">
                                     {{ __('Login') }}
                                 </button>
                             </div>
-                            <div class="col pwdrequest">
+                        </div>
+                        <div class="row mb-0 custom2">
+                            <div class="pwd row">
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link custom" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}

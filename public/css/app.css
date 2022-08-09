@@ -111,6 +111,8 @@ input[type="search"]:focus-visible {
 
 .card.customCard{
     box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    width: 620px;
+    align-self: center;
 }
 .card-header.customCardHeader {
     background-color: var(--main-color);
@@ -136,12 +138,29 @@ input[type="search"]:focus-visible {
 }
 
 .row.mb-0.custom {
-    padding-top: 2rem;
+    padding-top: 2.5rem;
 }
 .container.customContainer{
-    padding-right: 8rem;
+    max-width: 1180px;
+   
 }
 
 .row.mb-3.custom{
     padding-top: 1rem;
+}
+
+.btn.btn-primary.custom{
+    width: 100px;
+}
+
+.login.row{
+    justify-content: center;
+}
+
+.pwd.row{
+    justify-content: center;
+}
+
+.row.mb-0.custom2{
+    padding-top: 12px;
 }
