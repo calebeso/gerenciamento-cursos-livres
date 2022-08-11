@@ -3,6 +3,7 @@
 use App\Http\Controllers\Alunos\AlunoController;
 use App\Http\Controllers\Livros\LivroController;
 use App\Http\Controllers\Licoes\LicaoController;
+use App\Http\Controllers\ResponsavelController;
 use App\Http\Controllers\Usuarios\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Turmas\TurmaController;
@@ -57,9 +58,15 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     Route::patch('/atualizar-turma',[TurmaController::class,'update'])->name('turma.update');
     Route::delete('/excluir-turma{id}',[TurmaController::class,'delete'])->name('turma.delete');
     //Rotas para teste do autocomplete serão inseridas abaixo
+
+    Route::get('/responsavel', [ResponsavelController::class, 'index'])->name('responsavel.index');
+    Route::get('/responsavel/create', [ResponsavelController::class, 'create'])->name('responsavel.create');
+    Route::post('/responsavel/store', [ResponsavelController::class, 'store'])->name('responsavel.store');
+    Route::get('/responsavel/{responsavel]/edit', [ResponsavelController::class, 'edit'])->name('responsavel.edit');
+    Route::patch('/responsavel/atualizar-responsavel/{id}', [ResponsavelController::class, 'update'])->name('responsavel.update');
+    Route::delete('/responsavel/excluir-responsavel/{id}', [ResponsavelController::class, 'delete'])->name('responsavel.delete');
 });
 
 Auth::routes();
-
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
