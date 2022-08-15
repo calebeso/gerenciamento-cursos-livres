@@ -52,7 +52,7 @@
 
                         </td>
                         <td>
-                            <a href="{{ route('turma.edit', $turma->id ) }}" class="edit-icon me-1">
+                            <a href="{{ route('turma.info', $turma->id ) }}" class="edit-icon me-1">
                                 <i class="icofont-navigation-menu">Mais opções</i>
                             </a>
                             <form class="d-inline-block" method="POST" action="{{ route('turma.delete', $turma->id ) }}">

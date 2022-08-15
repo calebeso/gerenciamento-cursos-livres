@@ -101,13 +101,13 @@ $(document).ready(function(){
             }
         }
     });
-    //TESTE AUTOCOMPLETE
-    $('#buscaaluno').keyup(function(){
+    //TESTE AUTOCOMPLETE, corrigir e descomentar
+    /*$('#buscaaluno').keyup(function(){
         var query=$(this).val();
         if(query!=''){
                 var _token =$('input[name="_token"]').val();
                 $.ajax({
-                    url:"{{ route('autocomplete.fetch') }}",
+                    url:"DUASCHAVES route('autocomplete.fetch') DUASCHAVES",
                     method: "POST",
                     data:{query:query, _token:_token},
                     success:function(data){
@@ -116,7 +116,7 @@ $(document).ready(function(){
                     }
                 });
         }
-    });
+    });*/
 });
 </script>
 @endsection
