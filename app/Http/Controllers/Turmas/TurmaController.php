@@ -43,12 +43,12 @@ class TurmaController extends Controller
         //dd($request->all());
         $turma = new Turma; 
         $turma->idioma=$request->idioma;
+        /*A modalidade da turma não pode ser alterada*/
         $turma->modalidade=$request->modalidade;
         //TRATAR, virá como Array
         $turma->dias_semana=$request->dias_semana;
         $turma->hr_inicio=$request->hr_inicio;
         $turma->hr_termino=$request->hr_termino;
-        
         $user=User::find($request->user);
         $turma->users()->associate($user);
         $livro=new Livro;
@@ -62,8 +62,11 @@ class TurmaController extends Controller
         //$turma->livro_id=$request->livro_id;
         $turma->status=1;
         $turma->save();
-    
-        return redirect()->route('turma.edit',$turma->id);
+        if($turma->modalide==='Connections'){
+            return redirect()->route('turma.infoconnections',$turma->id);
+        }else if($turma->modalidade='Interactive'){
+            return redirect()->route('turma.infointeractive',$turma->id);
+        }
         //return view('turmas.index');
     }
     
@@ -71,17 +74,35 @@ class TurmaController extends Controller
         {
             $turma = Turma::find($id);
             $users=User::all();
-            /*Verificar aqui com um for each se o status do user é inativo. Se for, não acrescentar no select*/
-            $livros=Livro::all();
-
-            //RETORNANDO MAIS DE UM VETOR USANDO COMPACT
-            
-            
             if($turma->exists()){
-                return view('turmas.edit',compact('turma','users','livros'));
-                //return view('turmas.edit')->with('turma' , $turma);
+                if($turma->modalidade==='Connections'){
+                    $livros=Livro::all();
+                    return view('turmas.edit-turma-connections',compact('turma','users','livros'));
+                }else if($turma->modalidade=='Interactive'){
+                    return view('turmas.edit-turma-interactive',compact('turma','users'));
+                }else{
+                }
+            }
+        }
+        public function info($id)
+        {
+            $turma = Turma::find($id);
+            if($turma->exists()){
+                /*$aux_nomeserie='---';
+                $aux_nomelivro='---';*/
+                if($turma->modalidade=='Connections'){
+                    /*$aux_nomeserie=$turma->livro->serie;
+                    $aux_nomelivro=$turma->livro->nome;*/
+                    return view('turmas.infoconnections')->with('turma',$turma);
+                }else if($turma->modalidade=='Interactive'){
+                    return view('turmas.infointeractive')->with('turma',$turma);
+                }
+                /*Tentando fazer uma blade info que funcione para ambas as
+                modalidades. Se não der certo, comentar a linha abaixo e
+                descomentar os 'return view' de cada if*/
+                //return view('turmas.info',compact('turma','aux_nomeserie','aux_nomelivro'));
             }else{
-                // retorna página de listagem com aviso de turma não encontrado na base
+                return view('turmas.index')->with('turmas' , $turmas);
             }
         }
     
@@ -93,26 +114,26 @@ class TurmaController extends Controller
                 $turma->idioma=$request->idioma;
                 $turma->modalidade=$request->modalidade;
                 $turma->horario=$request->horario;
-                $turma->user_id=$request->user_id;
-                $turma->livro_id=$request->livro_id;
-                //agora sim, permitir alterar o status?
                 $turma->status=$request->status;
+                $user=User::find($request->user);
+                $turma->users()->associate($user);
+                $livro=new Livro;
+                if(!empty($request->livro)){
+                    $livro=Livro::find($request->livro);
+                }else{
+                    $livro=NULL;
+                }
                 $turma->save();
                 return redirect()->route('turma.index');
             }else{
                 // retorna página de listagem com aviso de livro não encontrado na base
+                return view('turmas.index')->with('turmas' , $turmas);
             }
         }
     
         public function delete($id)
         {
             $turma = Turma::find($id);
-            /*Como fazer a validação pelo laravel se a tabela composta Turmas_aluno (?) não configura um model e o aluno não possui atributo id_turma(s)?
-            RESOLVER DEPOIS
-            */
-            //$alunos=Aluno::findAll();
-
-            //if($turma->exists() && $turma->alunos()){
             if($turma->exists()){
                 $turma->delete();
                 return redirect()->route('turma.index');
