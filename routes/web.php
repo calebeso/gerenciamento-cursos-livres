@@ -62,7 +62,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     Route::get('/responsavel', [ResponsavelController::class, 'index'])->name('responsavel.index');
     Route::get('/responsavel/create', [ResponsavelController::class, 'create'])->name('responsavel.create');
     Route::post('/responsavel/store', [ResponsavelController::class, 'store'])->name('responsavel.store');
-    Route::get('/responsavel/{responsavel]/edit', [ResponsavelController::class, 'edit'])->name('responsavel.edit');
+    Route::get('/responsavel/{responsavel}/edit', [ResponsavelController::class, 'edit'])->name('responsavel.edit');
     Route::patch('/responsavel/atualizar-responsavel/{id}', [ResponsavelController::class, 'update'])->name('responsavel.update');
     Route::delete('/responsavel/excluir-responsavel/{id}', [ResponsavelController::class, 'delete'])->name('responsavel.delete');
 });
