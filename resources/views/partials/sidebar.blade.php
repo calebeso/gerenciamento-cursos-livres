@@ -20,7 +20,7 @@
                         <i class='bx bx-message-square-detail nav_icon'></i>
                         <span class="nav_name">Alunos</span>
                     </a>
-                    <a href="{{ route('responsavel.index') }}" class="nav_link">
+                    <a href="{{ route('responsavel.index') }}" class="nav_link {{ Request::is('responsavel') ? 'active' : '' }}">
                         <i class='bx bx-message-square-detail nav_icon'></i>
                         <span class="nav_name">Responsaveis</span>
                     </a>
