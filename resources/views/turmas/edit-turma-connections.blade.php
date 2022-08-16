@@ -74,17 +74,17 @@
                 <label for="Dias da semana">Dias da semana</label>
                 <fieldset>
                     <div>
-                        <input type="checkbox" id="segunda-feira" name="dias_semana" value="Segunda">
+                        <input type="checkbox" id="segunda-feira" name="dias_semana[]" value="Segunda">
                         <label for = "Segunda-feira">Segunda-feira</label>
-                        <input type="checkbox" id="terça-feira" name="dias_semana" value="Terça">
+                        <input type="checkbox" id="terça-feira" name="dias_semana[]" value="Terça">
                         <label for = "Terça-feira">Terça-feira</label>
-                        <input type="checkbox" id="quarta-feira" name="dias_semana" value="Quarta">
+                        <input type="checkbox" id="quarta-feira" name="dias_semana[]" value="Quarta">
                         <label for = "Quarta-feira">Quarta-feira</label>
-                        <input type="checkbox" id="quinta-feira" name="dias_semana" value="Quinta">
+                        <input type="checkbox" id="quinta-feira" name="dias_semana[]" value="Quinta">
                         <label for = "Quinta-feira">Quinta-feira</label>
-                        <input type="checkbox" id="sexta-feira" name="dias_semana" value="Sexta">
+                        <input type="checkbox" id="sexta-feira" name="dias_semana[]" value="Sexta">
                         <label for = "Sexta-feira">Sexta-feira</label>
-                        <input type="checkbox" id="sábado" name="dias_semana" value="Sábado">
+                        <input type="checkbox" id="sábado" name="dias_semana[]" value="Sábado">
                         <label for = "Sábado">Sábado</label>
                     </div>
                 </fieldset>
