@@ -3,7 +3,7 @@
 use App\Http\Controllers\Alunos\AlunoController;
 use App\Http\Controllers\Livros\LivroController;
 use App\Http\Controllers\Licoes\LicaoController;
-use App\Http\Controllers\ResponsavelController;
+use App\Http\Controllers\Responsavel\ResponsavelController;
 use App\Http\Controllers\Usuarios\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Turmas\TurmaController;
