@@ -46,7 +46,24 @@ class TurmaController extends Controller
         /*A modalidade da turma não pode ser alterada*/
         $turma->modalidade=$request->modalidade;
         //TRATAR, virá como Array
-        $turma->dias_semana=$request->dias_semana;
+        $vetor_dias=$request->input('dias_semana');
+        $escolhidos='';
+        /*for($i=0;$i<=6;$i++){
+            $escolhidos.=$vetor_dias[$i]->val();
+        }*/
+        $r=0;
+        foreach ($vetor_dias as $dia){
+            if(($dia!=NULL)&&($dia!='')){
+                if($r!=0){
+                    $escolhidos.='/';
+                }
+                $escolhidos.=$dia;
+                $r++;
+            }
+        }
+        //dd($vetor_dias);
+        //dd($escolhidos);
+        $turma->dias_semana=$escolhidos;
         $turma->hr_inicio=$request->hr_inicio;
         $turma->hr_termino=$request->hr_termino;
         $user=User::find($request->user);
@@ -113,7 +130,22 @@ class TurmaController extends Controller
             if($turma->exists()){
                 $turma->idioma=$request->idioma;
                 $turma->modalidade=$request->modalidade;
-                $turma->horario=$request->horario;
+                $vetor_dias=$request->input('dias_semana');
+                $escolhidos='';
+                /*for($i=0;$i<=6;$i++){
+                    $escolhidos.=$vetor_dias[$i]->val();
+                }*/
+                $r=0;
+                foreach ($vetor_dias as $dia){
+                    if(($dia!=NULL)&&($dia!='')){
+                        if($r!=0){
+                            $escolhidos.='/';
+                        }
+                        $escolhidos.=$dia;
+                        $r++;
+                    }
+                }
+                $turma->dias_semana=$escolhidos;
                 $turma->status=$request->status;
                 $user=User::find($request->user);
                 $turma->users()->associate($user);
