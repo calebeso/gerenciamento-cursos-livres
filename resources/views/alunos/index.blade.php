@@ -57,6 +57,9 @@
                                 <a class="remove-icon"><i class='icofont-ui-delete'></i>Excluir</a>
                             </button>
                         </form>
+                        <a href="{{ route('responsavel.index')}}">
+                          <i class="icofont-group"></i>Responsaveis
+                        </a>
                     </td>
                 </tr>
                 @endforeach
