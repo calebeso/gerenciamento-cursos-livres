@@ -3,7 +3,7 @@
 <div class="row align-items-center">
     <div class="col">
         <div class="my-4">
-            <h3>Responsaveis</h3>
+            <h3>Responsáveis</h3>
         </div>
     </div>
     <div class="col">
