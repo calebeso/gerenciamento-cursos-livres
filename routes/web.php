@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Alunos\AlunoController;
+use App\Http\Controllers\Responsavel\ResponsavelController;
 use App\Http\Controllers\Livros\LivroController;
 use App\Http\Controllers\Licoes\LicaoController;
 use App\Http\Controllers\Usuarios\UserController;
@@ -43,6 +44,12 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     Route::get('/alunos/{aluno}/edit', [AlunoController::class, 'edit'])->name('aluno.edit');
     Route::patch('/alunos/atualizar-aluno/{id}', [AlunoController::class, 'update'])->name('aluno.update');
     Route::delete('/alunos/excluir-aluno/{id}', [AlunoController::class, 'delete'])->name('aluno.delete');
+
+    Route::get('/alunos/{id}/responsavel', [ResponsavelController::class, 'index'])->name('responsavel.index');
+    Route::get('/alunos/{id}/editar-responsavel/{responsavel}', [ResponsavelController::class, 'edit'])->name('responsavel.edit');
+    Route::post('/alunos/{id}/cadastrar-responsavel', [ResponsavelController::class, 'store'])->name('responsavel.create');
+    Route::patch('/alunos/{id}/atualizar-responsavel/{responsavel}', [ResponsavelController::class, 'update'])->name('responsavel.update');
+    Route::delete('/alunos/{id}/excluir-responsavel/{responsavel}', [ResponsavelController::class, 'delete'])->name('responsavel.delete');
 
     Route::get('/turmas', [TurmaController::class, 'index'])->name('turma.index');
 
