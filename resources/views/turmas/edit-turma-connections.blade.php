@@ -36,42 +36,23 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <label for="inputId" class="form-label mt-4 mb-2">Código</label>
+                <label for="id" class="form-label mt-4 mb-2">Código</label>
                 <input type="text" name="id" class="form-control" value="{{ $turma->id }}" id="inputId" readonly>
             </div>
             <div class="col-md-2">
-                <label for="inputId" class="form-label mt-4 mb-2">Modalidade</label>
+                <label for="modalidade" class="form-label mt-4 mb-2">Modalidade</label>
                 <input type="text" name="modalidade" class="form-control" value="{{ $turma->modalidade }}" id="inputModalidade" readonly>
             </div>
-            <div class="col-md-6" id="divlivro">
-                <label for="inputLivro" class="form-label mt-4 mb-2">Livro</label>
-                <select name="livro" class="form-control" id="livro">
-                    <option value="">---</option>
-                    @foreach($livros as $livro)
-                    <option value="{{ $livro->id }}" {{$turma->livros->id===$livro->id ? 'selected':''}}>
-                        {{ $livro->nome }} ({{ $livro->serie }})
-                    </option>
-                    @endforeach
+            <div class="col-md-2">
+                <label for="status" class="form-label mt-4 mb-2">Status</label>
+                <select name="status" class="form-control" id="status">
+                    <option value="Ativa" {{$turma->status==='Ativa' ? 'selected':''}}>Ativa</option>
+                    <option value="Em formação" {{$turma->status==='Em formação' ? 'selected':''}} >Em formação</option>
+                    <option value="Encerrada" {{$turma->status==='Encerrada' ? 'selected':''}} >Encerrada</option>
                 </select>
             </div>
             <div class="form-group">
-                <div class="col-md-6">
-                    <label for="Idioma">Idioma</label>
-                    <select name="idioma" class="form-control" id="idioma">
-                        <option value="">---</option>
-                        <option value="Inglês" {{$turma->idioma==='Inglês'?'selected':''}}>Inglês</value>
-                        <option value="Espanhol" {{$turma->idioma==='Espanhol'?'selected':''}}>Espanhol</value>
-                        <option value="Alemão" {{$turma->idioma==='Alemão'?'selected':''}}>Alemão</value>
-                        <option value="Francês" {{$turma->idioma==='Francês'?'selected':''}}>Francês</value>
-                        <option value="Italiano" {{$turma->idioma==='Italiano'?'selected':''}}>Italiano</value>
-                        <option value="Chinês" {{$turma->idioma==='Chinês'?'selected':''}}>Chinês</value>
-                        <option value="Japonês" {{$turma->idioma==='Japonês'?'selected':''}}>Japonês</value>
-                        <option value="Português" {{$turma->idioma==='Português para estrangeiros'?'selected':''}}>Português para estrangeiros</value>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="Dias da semana">Dias da semana</label>
+                <label for="Dias da semana" class="form-label mt-4 mb-2">Dias da semana</label>
                 <fieldset>
                     <div>
                         <input type="checkbox" id="segunda-feira" name="dias_semana[]" value="Segunda">
@@ -88,6 +69,33 @@
                         <label for = "Sábado">Sábado</label>
                     </div>
                 </fieldset>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6">
+                    <label for="Idioma" class="form-label mt-4 mb-2">Idioma</label>
+                    <select name="idioma" class="form-control" id="idioma">
+                        <option value="">---</option>
+                        <option value="Inglês" {{$turma->idioma==='Inglês'?'selected':''}}>Inglês</value>
+                        <option value="Espanhol" {{$turma->idioma==='Espanhol'?'selected':''}}>Espanhol</value>
+                        <option value="Alemão" {{$turma->idioma==='Alemão'?'selected':''}}>Alemão</value>
+                        <option value="Francês" {{$turma->idioma==='Francês'?'selected':''}}>Francês</value>
+                        <option value="Italiano" {{$turma->idioma==='Italiano'?'selected':''}}>Italiano</value>
+                        <option value="Chinês" {{$turma->idioma==='Chinês'?'selected':''}}>Chinês</value>
+                        <option value="Japonês" {{$turma->idioma==='Japonês'?'selected':''}}>Japonês</value>
+                        <option value="Português" {{$turma->idioma==='Português para estrangeiros'?'selected':''}}>Português para estrangeiros</value>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6" id="divlivro">
+                <label for="inputLivro" class="form-label mt-4 mb-2">Livro</label>
+                <select name="livro" class="form-control" id="livro">
+                    <option value="">---</option>
+                    @foreach($livros as $livro)
+                    <option value="{{ $livro->id }}" {{$turma->livros->id===$livro->id ? 'selected':''}}>
+                        {{ $livro->nome }} ({{ $livro->serie }})
+                    </option>
+                    @endforeach
+                </select>
             </div>
             <div class="col-md-12">
                 <label for="Horário" class="form-label">Horário</label>

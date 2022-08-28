@@ -48,7 +48,7 @@
                         <td>{{ $turma->dias_semana}}</td>
                         <td>{{ $turma->hr_inicio }}</td>
                         <td>{{ $turma->hr_termino }}</td>
-                        <td>{{ $turma->status == 1 ? 'Em andamento' : 'Encerrada' }}
+                        <td>{{ $turma->status }}
 
                         </td>
                         <td>

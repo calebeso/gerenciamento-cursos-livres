@@ -9,6 +9,7 @@ use App\Models\Turma;
 //OBS: SIM, necessarias para enviar dados para alimentar os selects na criação e edição
 use App\Models\User;
 use App\Models\Livro;
+use Illuminate\Support\Facades\Validator;
 //use App\Models\Aluno;
 
 /**
@@ -66,6 +67,7 @@ class TurmaController extends Controller
         $turma->dias_semana=$escolhidos;
         $turma->hr_inicio=$request->hr_inicio;
         $turma->hr_termino=$request->hr_termino;
+
         $user=User::find($request->user);
         $turma->users()->associate($user);
         $livro=new Livro;
@@ -77,12 +79,12 @@ class TurmaController extends Controller
         $turma->livros()->associate($livro);
         //$turma->user_id=$request->user_id;
         //$turma->livro_id=$request->livro_id;
-        $turma->status=1;
+        $turma->status="Em formação";
         $turma->save();
         if($turma->modalide==='Connections'){
-            return redirect()->route('turma.infoconnections',$turma->id);
+            return redirect()->route('turma.infoconnections',$turma->id)->with('success', 'Turma connections criada com sucesso');;
         }else if($turma->modalidade='Interactive'){
-            return redirect()->route('turma.infointeractive',$turma->id);
+            return redirect()->route('turma.infointeractive',$turma->id)->with('success', 'Turma interactive criada com sucesso');;
         }
         //return view('turmas.index');
     }
@@ -125,16 +127,25 @@ class TurmaController extends Controller
     
         public function update(Request $request, $id)
         {
-            //adicionar validações mais tarde
+            //dd($request->all());
+            $rules =  [
+                'user' => 'required',
+                'idioma' => 'required',
+            ];
+            $messages = [
+                'user.required' => 'O campo usuário (professor) é obrigatório',
+                'idioma.required' => 'O campo idioma é obrigatório',
+            ];
+            $validate = Validator::make($request->all(), $rules, $messages);
+            if($validate->fails()){
+                return redirect()->back()->with('error', $validate->errors()->first());
+            }
             $turma = Turma::find($id);
             if($turma->exists()){
                 $turma->idioma=$request->idioma;
                 $turma->modalidade=$request->modalidade;
                 $vetor_dias=$request->input('dias_semana');
                 $escolhidos='';
-                /*for($i=0;$i<=6;$i++){
-                    $escolhidos.=$vetor_dias[$i]->val();
-                }*/
                 $r=0;
                 foreach ($vetor_dias as $dia){
                     if(($dia!=NULL)&&($dia!='')){
@@ -156,7 +167,7 @@ class TurmaController extends Controller
                     $livro=NULL;
                 }
                 $turma->save();
-                return redirect()->route('turma.index');
+                return redirect()->route('turma.index')->with('success', 'Turma alterada com sucesso');;
             }else{
                 // retorna página de listagem com aviso de livro não encontrado na base
                 return view('turmas.index')->with('turmas' , $turmas);
@@ -170,7 +181,7 @@ class TurmaController extends Controller
                 $turma->delete();
                 return redirect()->route('turma.index');
             }else{
-                // retorna página de listagem com aviso de turma não encontrado na base
+                // retorna página de listagem com aviso de turma não encontrada na base
             }
         }
     }
