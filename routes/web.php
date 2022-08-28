@@ -54,9 +54,12 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     Route::get('/info-turma/{id}',[TurmaController::class,'info'])->name('turma.info');
     Route::get('/info-turma-connections/{id}',[TurmaController::class,'info'])->name('turma.infoconnections');
     Route::get('/info-turma-interactive/{id}',[TurmaController::class,'info'])->name('turma.infointeractive');
+    /*NOVOS*/
+    Route::get('/turmas/{id}/lista-alunos', [TurmaController::class, 'listadealunos'])->name('turma.listadealunos');
+    Route::get('/lista-alunos/action',[TurmaController::class,'action'])->name('turma.action');
+    
     Route::patch('/atualizar-turma/{id}',[TurmaController::class,'update'])->name('turma.update');
     Route::delete('/excluir-turma{id}',[TurmaController::class,'delete'])->name('turma.delete');
-    //Rotas para teste do autocomplete serão inseridas abaixo
 });
 
 Auth::routes();
