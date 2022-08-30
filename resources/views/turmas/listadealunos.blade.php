@@ -27,11 +27,12 @@
 <div class="card">
     <div class="card-body">
         <div class="my-4">
-            <h3>Lista de alunos</h3>
             <a href="#">
                 <i class="icofont-ui-edit" id="btn_editar_lista_alunos" style="font-size:14px;"> Editar</i>
             </a>
             <input type="text" class="form-control @error('buscaaluno') is-invalid @enderror" id="buscaaluno" name="buscaaluno" placeholder="Procurar aluno(a)"/>
+            <button id="btn_add_aluno" type="button" style="margin-top:5px;" class="btn btn-outline-success" onclick="add_aluno()">+</button>
+            <h3>Alunos matriculados:</h3>
             <div id="listaAlunos"></div>
             </div>
         </form>
@@ -40,16 +41,26 @@
 @endsection
 @section('javascript')
 @include('includes.toastr')
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" integrity="sha512-HWlJyU4ut5HkEj0QsK/IxBCY55n5ZpskyjVlAoV9Z7XQwwkqXoYdCIC93/htL3Gu5H3R4an/S0h2NXfbZk3g7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-    var path="{{url('lista-alunos/action')}}";
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js">
+</script>
+<script type="text/javascript">
+    var route="{{ url('autocomplete-search') }}";
     $('#buscaaluno').typeahead({
         source:function(query,process){
-            return $.get(path,{query:query},function(data){
+            return $.get(route,{
+                query:query
+            },function(data){
                 return process(data);
             });
         }
     });
+    function add_aluno() {
+        var nomealuno=document.getElementById("buscaaluno").value;
+        if(nomealuno!=""){
+            document.getElementById('listaAlunos').innerHTML = nomealuno;
+        }
+    }
 </script>
 @endsection
