@@ -97,11 +97,15 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-12">
-                <label for="Horário" class="form-label">Horário</label>
-                <input type="text" name="hr_inicio" class="form-control" id="hr_inicio" value="{{$turma->hr_inicio}}">
-                às
-                <input type="text" name="hr_termino" class="form-control" id="hr_termino" value="{{$turma->hr_termino}}">
+            <div class="row-md-3">
+            <label for="Horário" class="form-label">Horário</label>
+                <div class="col-md-3">
+                    <input type="text" name="hr_inicio" class="form-control" id="hr_inicio" value="{{$turma->hr_inicio}}">
+                    às
+                </div>
+                <div class="col-md-3">
+                    <input type="text" name="hr_termino" class="form-control" id="hr_termino" value="{{$turma->hr_termino}}">
+                </div>
             </div>
         </div>
         <div class="row my-4">
@@ -134,5 +138,7 @@
 @section('javascript')
 @include('includes.toastr')
 <script>
+$('#hr_inicio').mask('00:00');
+$('#hr_termino').mask('00:00');
 </script>
 @endsection

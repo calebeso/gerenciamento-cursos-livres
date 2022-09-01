@@ -5,36 +5,30 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('turma.index') }}">Turmas /</a></li>
             <li class="breadcrumb-item active" aria-current="page">Turma
-                {{$turma->modalidade}} #{{ $turma->id }}
+                {{$turma->modalidade}} #{{ $turma->id }} | Professor(a): {{$turma->users->name}} | Data e hora: {{ $turma->dias_semana }} {{$turma->hr_inicio}} às {{$turma->hr_termino}}
             </li>
         </ol>
     </nav>
 </div>
-<div class="my-4">
-    <h3>Dados da turma</h3>
-    <a href="{{ route('turma.edit', $turma->id ) }}">
-        <i class="icofont-ui-edit" id="btn_editar_turma" style="font-size:14px;"> Editar</i>
-    </a>
-    <div class="col-md-6">
-        <div>
-            <label for="Professor">Professor(a): {{$turma->users->name}} </label>
-        </div>
-        <div>
-            <label for="Dias da semana">{{ $turma->dias_semana }} {{$turma->hr_inicio}}-{{$turma->hr_termino}}
-        </div>
-    </div>
-</div>
 <div class="card">
+    <div class="card-header">
+        <h3>Alunos matriculados:</h3>
+    </div>
     <div class="card-body">
         <div class="my-4">
-            <a href="#">
-                <i class="icofont-ui-edit" id="btn_editar_lista_alunos" style="font-size:14px;"> Editar</i>
-            </a>
-            <input type="text" class="form-control @error('buscaaluno') is-invalid @enderror" id="buscaaluno" name="buscaaluno" placeholder="Procurar aluno(a)"/>
-            <button id="btn_add_aluno" type="button" style="margin-top:5px;" class="btn btn-outline-success" onclick="add_aluno()">+</button>
-            <h3>Alunos matriculados:</h3>
-            <div id="listaAlunos"></div>
+        Não há alunos matriculados nessa turma por enquanto
+        </div>
+        <div class="my-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" class="form-control @error('buscaaluno') is-invalid @enderror" id="buscaaluno" name="buscaaluno" placeholder="Matricular aluno(a)"/>
+                    <button id="btn_add_aluno" type="button" style="margin-top:5px;" class="btn btn-outline-success" onclick="add_aluno()">+</button>
+                </div>
             </div>
+            <div>
+                <ol id="listaAlunos"></ol>
+            </div>
+        </div>
         </form>
     </div>
 </form>
@@ -59,7 +53,7 @@
     function add_aluno() {
         var nomealuno=document.getElementById("buscaaluno").value;
         if(nomealuno!=""){
-            document.getElementById('listaAlunos').innerHTML = nomealuno;
+            document.getElementById('listaAlunos').innerHTML += "<li name='aluno_a_adicionar[]'>"+nomealuno+"</li>";
         }
     }
 </script>

@@ -121,5 +121,7 @@
 @section('javascript')
 @include('includes.toastr')
 <script>
+$('#hr_inicio').mask('00:00');
+$('#hr_termino').mask('00:00');
 </script>
 @endsection
