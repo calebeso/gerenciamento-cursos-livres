@@ -12,6 +12,8 @@
 <script src="{{ asset('js/main.js') }}"></script>
 <script src="{{ asset('js/sidebar/sidebars.js') }}"></script>
 
+<!-- NiceSelect -->
+<script src="{{ asset('plugins/niceselect/jquery.nice-select.js') }}"></script>
 
 <!-- Datatable -->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>

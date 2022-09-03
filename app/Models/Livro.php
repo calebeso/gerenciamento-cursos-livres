@@ -28,7 +28,7 @@ class Livro extends Model
 
     public function horasAula()
     {
-        return $this->belongsTo(HoraAula::class);
+        return $this->hasMany(HoraAula::class);
     }
     public function turmas(){
         return $this->hasMany(Turma::class,'turma_id','id');

@@ -11,6 +11,7 @@ class Turma extends Model
 
     protected $table = 'turma';
     
+
     protected $fillable = [
         'idioma',
         'modalidade',
@@ -26,18 +27,20 @@ class Turma extends Model
     public function livros(){
         return $this->belongsTo(Livro::class,'livro_id','id');
     }
+    
     public function users(){
         return $this->belongsTo(User::class, 'user_id','id');
 
     }
+
     //setando relacionamento muitos para muitos
     public function alunos()
     {
-        return $this->belongsToMany(Aluno::class);
+        return $this->belongsToMany(Aluno::class, 'turma_aluno', 'turma_id', 'aluno_id');
     }
 
     public function diariosAula()
     {
-        return $this->belongsTo(DiarioAula::class);
+        return $this->hasMany(DiarioAula::class);
     }
 }

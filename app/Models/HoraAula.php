@@ -29,11 +29,11 @@ class HoraAula extends Model
     }
 
     public function alunos(){
-        return $this->hasMany(Aluno::class);
+        return $this->belongsTo(Aluno::class);
     }
 
     public function livros(){
-        return $this->hasMany(Livro::class);
+        return $this->belongsTo(Livro::class);
     }
 
     public function licoes(){

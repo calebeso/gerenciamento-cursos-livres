@@ -9,13 +9,15 @@ class DiarioAula extends Model
 {
     use HasFactory;
 
+    protected $table = 'diario_aula';
+
     protected $fillable = [
         'data',
         'turma_id'
     ];
 
-    public function turmas(){
-        return $this->hasMany(Turma::class);
+    public function turma(){
+        return $this->belongsTo(Turma::class);
     }
 
     public function horasAula()

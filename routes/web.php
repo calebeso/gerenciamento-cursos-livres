@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Alunos\AlunoController;
+use App\Http\Controllers\DiarioAula\DiarioAulaController;
 use App\Http\Controllers\Livros\LivroController;
 use App\Http\Controllers\Licoes\LicaoController;
 use App\Http\Controllers\Usuarios\UserController;
@@ -23,6 +24,10 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     Route::get('/editar-usuario/{id}', [UserController::class, 'edit'])->name('user.edit');
     Route::patch('/atualizar-usuario/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/excluir-usuario/{id}', [UserController::class, 'delete'])->name('user.delete');
+
+    Route::get('/turma/{id}/diarios', [DiarioAulaController::class, 'index'])->name('diario.index');
+    Route::get('/turma/{id}/novo-diario', [DiarioAulaController::class, 'create'])->name('diario.create');
+    Route::post('/turma/{id}/novo-diario', [DiarioAulaController::class, 'store'])->name('diario.store');
 
     Route::get('/livros', [LivroController::class, 'index'])->name('livro.index');
     Route::get('/cadastrar-livro', [LivroController::class, 'create'])->name('livro.create');
