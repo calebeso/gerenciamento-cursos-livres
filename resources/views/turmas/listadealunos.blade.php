@@ -60,7 +60,7 @@
 
             document.getElementById('listaAlunos').innerHTML += "<tr><td width='400px'>";
             document.getElementById('listaAlunos').innerHTML += "<input type='text' class='form-control' style='background-color:transparent; border: 0; font-size: 1em;' name='aluno_a_matricular[]' value='"+nomealuno+"' readonly/>";
-            document.getElementById('listaAlunos').innerHTML +="</td><td>ADICIONAR SIMBOLO DE REMOÇÃO DEPOIS</td></tr>"; 
+            document.getElementById('listaAlunos').innerHTML +="</td><td>Remover</td></tr>"; 
         }
     }
 </script>

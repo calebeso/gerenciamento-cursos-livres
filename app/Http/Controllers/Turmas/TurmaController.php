@@ -148,6 +148,7 @@ class TurmaController extends Controller
             return redirect()->route('turma.index')->with('success', 'Turma alterada com sucesso');;
         }else{
             // retorna página de listagem com aviso de livro não encontrado na base
+            $turmas = Turma::all();
             return view('turmas.index')->with('turmas' , $turmas);
         }
     }
@@ -170,10 +171,30 @@ class TurmaController extends Controller
             // retorna página de listagem com aviso de turma não encontrada na base
         }
     }
-    public function vincularalunos(Request $request){
+    public function vincularalunos(Request $request,$id){
         $vetor_alunos=$request->input('aluno_a_matricular');
-        dd($vetor_alunos);
-        //dd($request->all());
+        //dd($vetor_alunos);
+	    foreach($vetor_alunos as $aluno_a_buscar){
+            //Linha abaixo parece não ter funcionado mas deve ser prioridade, linha seguinte é uma
+            //alternativa por ora
+            $alunobuscado=Aluno::where('nome',$aluno_a_buscar)->get();
+            /*$alunobuscado=Aluno::select('*')
+            ->where('nome','=',$aluno_a_buscar)
+            ->get();*/
+            dd($alunobuscado);
+            if($alunobuscado==NULL){
+                //CRIAR ACIMA UM VETOR COM ALUNOS QUE NÃO FORAM ENCONTRADOS E ADICIONAR
+                //O NOME CONTIDO EM ALUNO_A_BUSCAR A ELE
+            }else{
+                //$aluno->Aluno::findDAR UM FIND
+                $alunobuscado->turmas()->attach($id);
+                //DEPENDE DE HERDAR PIVOT?
+            }
+        }
+        $turma=Turma::findOrFail($id);
+        $turmas = Turma::all();
+        return view('turmas.index')->with('turmas' , $turmas);
+        //return redirect('/turmas')->with('msg','Alunos vinculados com sucesso à turma '.$turma->id);
     }
     
     public function listadealunos(Request $request){
