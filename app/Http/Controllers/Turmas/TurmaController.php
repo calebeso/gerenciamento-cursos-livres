@@ -66,11 +66,12 @@ class TurmaController extends Controller
         $turma->livros()->associate($livro);
         $turma->status="Em formação";
         $turma->save();
-        if($turma->modalide==='Connections'){
+        /*if($turma->modalide==='Connections'){
             return redirect()->route('turma.infoconnections',$turma->id)->with('success', 'Turma connections criada com sucesso');;
         }else if($turma->modalidade='Interactive'){
             return redirect()->route('turma.infointeractive',$turma->id)->with('success', 'Turma interactive criada com sucesso');;
-        }
+        }*/
+        return view('turmas.listadealunos')->with('turma',$turma);
     }
     
     public function edit($id)
@@ -97,10 +98,6 @@ class TurmaController extends Controller
             }else if($turma->modalidade=='Interactive'){
                 return view('turmas.infointeractive')->with('turma',$turma);
             }
-                /*Tentando fazer uma blade info que funcione para ambas as
-                modalidades. Se não der certo, comentar a linha abaixo e
-                descomentar os 'return view' de cada if*/
-                //return view('turmas.info',compact('turma','aux_nomeserie','aux_nomelivro'));
         }else{
             return view('turmas.index')->with('turmas' , $turmas);
         }
@@ -173,8 +170,10 @@ class TurmaController extends Controller
             // retorna página de listagem com aviso de turma não encontrada na base
         }
     }
-    public function matricularalunos(Request $request){
-        //$lesson->livros()->associate($livro);
+    public function vincularalunos(Request $request){
+        $vetor_alunos=$request->input('aluno_a_matricular');
+        dd($vetor_alunos);
+        //dd($request->all());
     }
     
     public function listadealunos(Request $request){

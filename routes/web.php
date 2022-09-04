@@ -49,16 +49,20 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
     Route::get('/cadastrar-turma',[TurmaController::class, 'create'])->name('turma.create');
     Route::post('/cadastrar-turma',[TurmaController::class,'store'])->name('turma.store');
+    Route::post('/turmas/{id}/vincular-alunos',[TurmaController::class,'vincularalunos'])->name('turma.vincularalunos');
     Route::get('/editar-turma/{id}',[TurmaController::class,'edit'])->name('turma.edit');
     Route::get('/editar-turma-connections/{id}',[TurmaController::class,'edit'])->name('turma.editconnections');
     Route::get('/editar-turma-interactive/{id}',[TurmaController::class,'edit'])->name('turma.editinteractive');
+    Route::patch('/atualizar-turma/{id}',[TurmaController::class,'update'])->name('turma.update');
+    Route::delete('/excluir-turma{id}',[TurmaController::class,'delete'])->name('turma.delete');
+    Route::get('/turmas/{id}/lista-alunos', [TurmaController::class, 'listadealunos'])->name('turma.listadealunos');
+
+    //TURMAS -> rotas que provavelmente serão inutilizadas e removidas em breve
     Route::get('/info-turma/{id}',[TurmaController::class,'info'])->name('turma.info');
     Route::get('/info-turma-connections/{id}',[TurmaController::class,'info'])->name('turma.infoconnections');
     Route::get('/info-turma-interactive/{id}',[TurmaController::class,'info'])->name('turma.infointeractive');
-    Route::get('/turmas/{id}/lista-alunos', [TurmaController::class, 'listadealunos'])->name('turma.listadealunos');
-    Route::patch('/atualizar-turma/{id}',[TurmaController::class,'update'])->name('turma.update');
-    Route::delete('/excluir-turma{id}',[TurmaController::class,'delete'])->name('turma.delete');
 
+    //TURMAS -> rotas necessárias para Typeahead
     Route::get('/home',[TypeAheadController::class,'index']);
     Route::get('/autocomplete-search',[TypeAheadController::class,'autocompleteSearch']);
 });
