@@ -43,7 +43,7 @@ class Aluno extends Model
 
     public function turmas()
     {
-        return $this->belongsToMany(Turma::class);
+        return $this->belongsToMany(Turma::class,'turma_aluno');
     }
 
     public function horasAula()
