@@ -28,10 +28,35 @@ class DiarioAulaController extends Controller
         if ($turma) {
             if ($turma->modalidade === "connections") {
                 $licoes = $turma->livros->licoes;
+            }else{
+                if(!$this->verifyIfStudentHasLesson($turma))
+                {
+                    return redirect()->back()->with('error', 'Essa turma contém alunos não vinculados a livros!');
+                };
             }
         }
 
         return view('diarios.create', compact('turma', 'licoes'));
+    }
+
+    public function verifyIfStudentHasLesson($turma)
+    {
+        $licoes = []; 
+        foreach($turma->alunos as $alunos)
+        {
+            foreach($alunos->livros as $livros)
+            {
+                    $licoes[] = $alunos->nome;
+            }
+        }
+
+        if(count($turma->alunos) <> count($licoes))
+        {
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
     public function store($id, Request $request)
@@ -43,6 +68,8 @@ class DiarioAulaController extends Controller
 
         //salva diário de aula
         $diarioDeAula = $this->storeDiarioDeAula($request, $turma);
+
+        dd($request->all());
         
         // caso connection, escolhe uma licao para todos alunos
         if($request->licao_id){
