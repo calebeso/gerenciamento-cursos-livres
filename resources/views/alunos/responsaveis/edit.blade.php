@@ -1,38 +1,57 @@
 @extends('layouts.app')
 @section('content')
 <div class="my-4">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{{ route('responsavel.index', $aluno->id) }}">Aluno /</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Editar {{ $responsavel->nome }}
-      </li>
-    </ol>
-  </nav>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('responsavel.index', $aluno->id) }}">Aluno /</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Editar {{ $responsavel->nome }}
+            </li>
+        </ol>
+    </nav>
 </div>
 <div class="my-4">
-  <h3>Editar responsavel</h3>
+    <h3>Editar responsavel - {{ $responsavel->nome }}</h3>
 </div>
 <div class="card">
-  <div class="card-body">
-    <form action="{{ route('responsavel.update',['id' => $aluno->id, 'licao' => $responsavel->id]) }}" method="POST">
-      @method('PATCH')
-      @csrf
-      <div class="form-group">
-        <label class="mt-4 mb-2" for="nome">Nome</label>
-        <input type="text" name="nome" class="form-control" value="{{ $responsavel->nome }}" id="nome">
-      </div>
-  </div>
+    <div class="card-body">
+        <form action="{{ route('responsavel.update',['id' => $aluno->id, 'responsavel' => $responsavel->id]) }}" method="POST">
+            @method('PATCH')
+            @csrf
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="inputName" class="form-label mt-4 mb-2">Nome</label>
+                    <input type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" id="name" value="{{ $responsavel->nome }}">
+                    @error('nome')
+                    <div class="invalid-feedback">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="col-md-12">
+                    <label for="inputParentesco" class="form-label mt-4 mb-2">Parentesco</label>
+                    <input type="text" class="form-control @error('parentesco') is-invalid @enderror" name="parentesco" id="parentesco" value="{{ $responsavel->parentesco }}">
+                    @error('email')
+                    <div class="invalid-feedback">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="col-md-6">
+                    <label for="inputTel" class="form-label mt-4 mb-2">Telefone</label>
+                    <input type="text" class="form-control @error('telefone') is-invalid @enderror" id="telefone" name="telefone" value="{{ $responsavel->telefone }}">
+                    @error('telefone')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+    </div>
 </div>
 
 <div class="row my-4">
-  <div class="d-flex justify-content-start">
-    <button type="submit" class="btn btn-success me-1">
-      {{ __('Salvar') }}
-    </button>
-    <button class="btn btn-danger">
-      {{ __('Cancelar') }}
-    </button>
-  </div>
+    <div class="d-flex justify-content-start">
+        <button type="submit" class="btn btn-success me-1">
+            {{ __('Salvar') }}
+        </button>
+        <button class="btn btn-danger">
+            {{ __('Cancelar') }}
+        </button>
+    </div>
 </div>
 </form>
 @endsection
