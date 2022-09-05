@@ -33,19 +33,6 @@
             @endforeach
         </select>
     </div>
-    <!--<div class="form-group" id="divserie">
-    <label for="serie">Série</label>
-    <select name="serie" class="form-control" id="serie">
-            <option value="">---</option>
-            <option value="Tots">Tots</value>
-            <option value="Little Kids">Little Kids</value>
-            <option value="Kids">Kids</value>
-            <option value="Teens">Teens</value>
-            <option value="Adults">Adults</value>
-            <option value="Idiomas">Idiomas</value>
-            <option value="Outra">Outra</value>
-        </select>
-    </div>-->
     <div class="form-group">
         <label for="Idioma">Idioma</label>
         <select name="idioma" class="form-control" id="idioma">
@@ -86,13 +73,18 @@
         <input type="text" name="hr_termino" class="form-control" id="hr_termino">
     </div>
     <br>
-  <button type="submit" class="btn btn-primary">Cadastrar</button>
+  <button type="submit" class="btn btn-primary" onclick="validardados()">Cadastrar</button>
 </form>
     </div>
 </div>
 @endsection
 @section('javascript')
 <script>
+/*function validardados(){
+    var hi=document.getElementById("hr_inicio").value;
+    var ht=document.getElementById("hr_termino").value;
+    //alert ('Horários de início e término: '+hi+'/'+ht);
+}*/
 $('#hr_inicio').mask('00:00');
 $('#hr_termino').mask('00:00');
 $(document).ready(function(){
@@ -105,9 +97,6 @@ $(document).ready(function(){
             $('#divserie').hide()
             $('#livro').value=null
             $('#serie').value=null
-            /*var reslivro=$('#livro').value;
-            var resserie=$('#serie').value;
-            alert('O livro foi alterado para: '+reslivro+' e a série para: '+resserie);*/
         }else{
             if(modalidade==="Connections"){
                 $('#divlivro').show()
@@ -116,8 +105,7 @@ $(document).ready(function(){
         }
     });
 
-    //------------------------------------------------------------------------------
-    //FUNÇÃO PARA CONCATENAR DIAS DA SEMANA NUMA VARIÁVEL
+    
     
 });
     

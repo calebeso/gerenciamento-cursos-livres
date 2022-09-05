@@ -33,7 +33,7 @@ class Turma extends Model
     //setando relacionamento muitos para muitos
     public function alunos()
     {
-        return $this->belongsToMany(Aluno::class);
+        return $this->belongsToMany(Aluno::class,'turma_aluno');
     }
 
     public function diariosAula()

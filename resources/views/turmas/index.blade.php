@@ -20,7 +20,7 @@
                     <a href="{{ route('turma.create') }}"><button type="button" class="btn btn-primary">Nova turma</button></a>
                 </div>
                 <div class="card-body">
-                    <p>Filtros</p>
+                    
                 </div>
             </div>
             <div class="card">
