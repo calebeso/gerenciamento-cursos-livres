@@ -11,7 +11,7 @@
 <div class="row align-items-center">
     <div class="col">
         <div class="my-4">
-            <h3>Responsável do Aluno {{ $aluno->nome }}</h3>
+            <h3>Responsável do Aluno - {{ $aluno->nome }}</h3>
         </div>
     </div>
     <div class="col">
@@ -26,24 +26,39 @@
         <table class="table" id="responsavel">
             <thead>
                 <tr>
-                    <th scope="col"></th>
+                    <th scope="col">#</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">Parentesco</th>
-                    <th scope="col">Telefone</th>
-                    <th scope="col"></th>
+                    <th scope="col">parentesco</th>
+                    <th scope="col">telefone</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($aluno->responsavel as $responsavel)
+                @forelse($aluno->responsaveis as $responsavel)
+                <tr>
+                    <td scope="row">
+                        <span class="badge badge-phil bg-dark">
+                            # {{ $responsavel->id }}
+                        </span>
+                    </td>
+                    <th>{{ $responsavel->nome }}</th>
+                    <th>{{ $responsavel->parentesco }}</th>
+                    <th>{{ $responsavel->telefone }}</th>
+                    <td>
+                        <a href="{{ route('responsavel.edit', ['id' => $aluno->id, 'responsavel' => $responsavel->id] ) }}" class="edit-icon me-1">
+                            <i class="icofont-ui-edit"></i>Editar
+                        </a>
+                        <form action="{{ route('responsavel.delete', ['id' => $aluno->id, 'responsavel' => $responsavel->id] ) }}" class="d-inline-block" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button id="excluir">
+                                <a class="remove-icon"><i class='icofont-ui-delete'></i>Excluir</a>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
                 @empty
                 @endforelse
-                <tr>
-                    <th>1</th>
-                    <th>Rezes</th>
-                    <th>Irmão</th>
-                    <th>999999999</th>
-                    <th>Edit/Delete</th>
-                </tr>
             </tbody>
         </table>
     </div>
