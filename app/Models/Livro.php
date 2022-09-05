@@ -23,7 +23,7 @@ class Livro extends Model
 
     public function alunos()
     {
-        return $this->belongsToMany(Aluno::class);
+        return $this->belongsToMany(Aluno::class, 'livro_aluno', 'livro_id', 'aluno_id');
     }
 
     public function horasAula()

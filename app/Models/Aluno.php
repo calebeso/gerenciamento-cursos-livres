@@ -33,7 +33,7 @@ class Aluno extends Model
 
     public function livros()
     {
-        return $this->belongsToMany(Livro::class);
+        return $this->belongsToMany(Livro::class, 'livro_aluno', 'aluno_id', 'livro_id');
     }
 
     public function responsaveis()
