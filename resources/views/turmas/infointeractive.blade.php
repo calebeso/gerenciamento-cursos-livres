@@ -48,7 +48,7 @@
     <div class="card-body">
         <div class="my-4">
             <h3>Lista de alunos</h3>
-            <a href="#">
+            <a href="{{ route('turma.listadealunos', $turma->id ) }}">
                 <i class="icofont-ui-edit" id="btn_editar_lista_alunos" style="font-size:14px;"> Editar</i>
             </a>
             <input type="text" class="form-control @error('buscaaluno') is-invalid @enderror" id="buscaaluno" name="buscaaluno" placeholder="Procurar aluno(a)"/>
