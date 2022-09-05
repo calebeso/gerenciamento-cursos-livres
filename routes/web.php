@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Alunos\AlunoController;
 use App\Http\Controllers\DiarioAula\DiarioAulaController;
+use App\Http\Controllers\HoraAula\HoraAulaController;
 use App\Http\Controllers\Livros\LivroController;
 use App\Http\Controllers\Licoes\LicaoController;
 use App\Http\Controllers\Usuarios\UserController;
@@ -18,6 +19,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
  Route::middleware(['auth'])->group(function() {
 
+    //Usuarios
     Route::get('/usuarios', [UserController::class, 'index'])->name('user.index');
     Route::get('/cadastra-usuario', [UserController::class, 'register'])->name('user.create');
     Route::post('/cadastra-usuario', [UserController::class, 'store'])->name(('user.save'));
@@ -25,10 +27,16 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     Route::patch('/atualizar-usuario/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/excluir-usuario/{id}', [UserController::class, 'delete'])->name('user.delete');
 
+    //Diario de Aula 
     Route::get('/turma/{id}/diarios', [DiarioAulaController::class, 'index'])->name('diario.index');
     Route::get('/turma/{id}/novo-diario', [DiarioAulaController::class, 'create'])->name('diario.create');
+
+    //Hora Aula
+    Route::get('/turma/{id}/visualizar-diario/{diario}', [HoraAulaController::class, 'show'])->name('diario.show');
+    Route::get('/turma/{id}/editar-diario/{diario}', [DiarioAulaController::class, 'edit'])->name('diario.edit');
     Route::post('/turma/{id}/novo-diario', [DiarioAulaController::class, 'store'])->name('diario.store');
 
+    //Livros
     Route::get('/livros', [LivroController::class, 'index'])->name('livro.index');
     Route::get('/cadastrar-livro', [LivroController::class, 'create'])->name('livro.create');
     Route::post('/cadastrar-livro', [LivroController::class, 'store'])->name('livro.store');
@@ -36,12 +44,14 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     Route::patch('/atualizar-livro/{id}', [LivroController::class, 'update'])->name('livro.update');
     Route::delete('/excluir-livro/{id}', [LivroController::class, 'delete'])->name('livro.delete');
     
+    //Lições
     Route::get('/livros/{id}/licoes', [LicaoController::class, 'index'])->name('licoes.index');
     Route::get('/livros/{id}/editar-licao/{licao}', [LicaoController::class, 'edit'])->name('licoes.edit');
     Route::post('/livros/{id}/cadastrar-licao', [LicaoController::class, 'store'])->name('licoes.create');
     Route::patch('/livros/{id}/atualizar-licao/{licao}', [LicaoController::class, 'update'])->name('licoes.update');
     Route::delete('/livros/{id}/excluir-licao/{licao}', [LicaoController::class, 'delete'])->name('licoes.delete');
 
+    //Alunos
     Route::get('/alunos', [AlunoController::class, 'index'])->name('aluno.index');
     Route::get('/alunos/create', [AlunoController::class, 'create'])->name('aluno.create');
     Route::post('/alunos/store', [AlunoController::class, 'store'])->name('aluno.store');
@@ -50,8 +60,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     Route::patch('/alunos/atualizar-aluno/{id}', [AlunoController::class, 'update'])->name('aluno.update');
     Route::delete('/alunos/excluir-aluno/{id}', [AlunoController::class, 'delete'])->name('aluno.delete');
 
+    //Turmas
     Route::get('/turmas', [TurmaController::class, 'index'])->name('turma.index');
-
     Route::get('/cadastrar-turma',[TurmaController::class, 'create'])->name('turma.create');
     Route::post('/cadastrar-turma',[TurmaController::class,'store'])->name('turma.store');
     Route::get('/editar-turma/{id}',[TurmaController::class,'edit'])->name('turma.edit');
