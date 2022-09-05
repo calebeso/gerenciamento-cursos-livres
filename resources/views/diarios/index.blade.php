@@ -12,7 +12,7 @@
 <div class="row align-items-center">
   <div class="col">
     <div class="my-4">
-      <h3>Diários de Aula</h3>
+      <h3>Diários de Turma</h3>
     </div>
   </div>
   <div class="col">
@@ -56,6 +56,21 @@
   </div>
 </div>
 @empty
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <h5 class="float-end">
+          <i class="second-main-color icofont-sad icofont-5x"></i>
+        </h5>
+      </div>
+      <div class="col mt-2">
+        <h3 class="second-main-color font-weight-700">Ooops!</h3>
+        <h5 class="font-weight-600">Nenhum Diário de Turma cadastrado</h5>
+      </div>
+    </div>
+  </div>
+</div>
 @endforelse
 @endsection
 @section('javascript')

@@ -198,6 +198,10 @@ input[type="search"]:focus-visible {
     font-weight: 700;
 }
 
+.font-weight-600{
+    font-weight: 600;
+}
+
 .second-main-color{
     color: var(--second-main-color);
 }
