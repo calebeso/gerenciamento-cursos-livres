@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Responsavel;
 
 use App\Http\Controllers\Controller;
-use App\Models\{ Aluno, Responsavel };
+use App\Models\Aluno;
+use App\Models\Responsavel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,10 +13,9 @@ class ResponsavelController extends Controller
     public function index($id)
     {
         $aluno = Aluno::find($id);
+        
         if($aluno->exists()){
             return view('alunos.responsaveis.index', compact('aluno'));
-        }else{
-            return redirect()->route('alunos.index')->with('error', 'Aluno não encontrado');
         }
     }
 
@@ -47,10 +47,10 @@ class ResponsavelController extends Controller
             $responsavel->nome = $request->nome;
             $responsavel->parentesco = $request->parentesco;
             $responsavel->telefone = $request->telefone;
-            $responsavel->alunos()->associate($aluno);
             $responsavel->save();
+            $responsavel->alunos()->attach($aluno->id);
             
-            return redirect()->route('responsaveis.index', $id)->with('success', 'Responsável criado com sucesso');
+            return redirect()->route('responsavel.index', $id)->with('success', 'Responsável criado com sucesso');
         }
     }
 
@@ -58,10 +58,8 @@ class ResponsavelController extends Controller
     {
         $aluno = Aluno::find($id_aluno);
 
-        if($aluno->exists())
-        {
-            $responsavel = Responsavel::findOrFail($id_responsavel);
 
+        if($aluno->exists()){
             return view('alunos.responsaveis.edit', compact('aluno', 'responsavel'));
         }
     }
