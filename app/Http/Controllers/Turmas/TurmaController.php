@@ -147,7 +147,6 @@ class TurmaController extends Controller
             $turma->save();
             return redirect()->route('turma.index')->with('success', 'Turma alterada com sucesso');;
         }else{
-            // retorna página de listagem com aviso de livro não encontrado na base
             $turmas = Turma::all();
             return view('turmas.index')->with('turmas' , $turmas);
         }
@@ -157,44 +156,70 @@ class TurmaController extends Controller
     {
         $turma = Turma::find($id);
         if($turma->exists()){
-            /*Validação para confirmar se não há alunos vinculados à turma. Se houverem,
-            será feita apenas uma exclusão lógica, alterando o status da turma para "Encerrada"
-            */
-            /*if(){
-                $turma->status="Arquivada";
+            $alunosmatriculados=$turma->alunos;
+            //dd($alunosmatriculados);
+            $contadordealunos=0;
+            foreach($alunosmatriculados as $am){
+                $contadordealunos++;
+            }
+            //dd($contadordealunos);
+            if($contadordealunos>0){
+                //$turma->status="Arquivada";
+                return redirect()->route('turma.index')->with('error','Não foi possível excluir a turma pois há alunos vinculados a ela.');
             }else{
                 $turma->delete();
-            }*/
-            $turma->delete();
-            return redirect()->route('turma.index');
+                return redirect()->route('turma.index')->with('success','Turma deletada com sucesso!');
+            }
         }else{
-            // retorna página de listagem com aviso de turma não encontrada na base
         }
+    }
+    public function desvincularaluno(Request $request,$idturma,$idaluno){
+        $turma = Turma::find($idturma);
+        $turma->alunos()->detach($idaluno);
+        $vetoralunos=$turma->alunos;
+        return view('turmas.listadealunos',compact('turma','vetoralunos'));
     }
     public function vincularalunos(Request $request,$id){
         $vetor_alunos=$request->input('aluno_a_matricular');
-        //dd($vetor_alunos);
 	    foreach($vetor_alunos as $aluno_a_buscar){
             $alunobuscado=Aluno::where('nome',$aluno_a_buscar)->first();
             if($alunobuscado==NULL){
-                //CRIAR ACIMA UM VETOR COM ALUNOS QUE NÃO FORAM ENCONTRADOS E ADICIONAR
-                //O NOME CONTIDO EM ALUNO_A_BUSCAR A ELE
+                
             }else{
                 $alunobuscado->turmas()->attach($id);
             }
         }
         $turma=Turma::findOrFail($id);
-        $turmas = Turma::all();
-        return view('turmas.index')->with('turmas' , $turmas);
-        //return view('turmas.create',compact('users','livros'));
-        //return redirect('/turmas')->with('msg','Alunos vinculados com sucesso à turma '.$turma->id);
+        if(empty($turma)){
+            $turmas = Turma::all();
+            return view('turmas.index')->with('turmas' , $turmas);
+        }else{
+            $vetoralunos=$turma->alunos;
+            return view('turmas.listadealunos',compact('turma','vetoralunos'));
+        }       
     }
     
     public function listadealunos(Request $request){
         $turma = Turma::find($request->id);
-        if($turma->exists()){
-            return view('turmas.listadealunos')->with('turma',$turma);
+        $alunosmatriculados=$turma->alunos;
+        //dd($alunosmatriculados->nome);
+        $vetoralunos=Array();
+        if(!empty($alunosmatriculados)){
+            foreach($alunosmatriculados as $alunomatriculado){
+                //dd($alunomatriculado->nome);
+                //$vetoralunos=$alunomatriculado;
+                array_push($vetoralunos,$alunomatriculado);
+            }
         }else{
+            $vetoralunos='';
+        }
+        //dd($vetoralunos);
+        if($turma->exists()){
+            //COMPACT CASO HAJAM ALUNOS
+            return view('turmas.listadealunos',compact('turma','vetoralunos'));
+            //return view('turmas.listadealunos')->with('turma',$turma);
+        }else{
+            $turmas = Turma::all();
             return view('turmas.index')->with('turmas' , $turmas);
         }
     }
