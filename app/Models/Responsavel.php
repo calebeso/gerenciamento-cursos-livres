@@ -19,6 +19,6 @@ class Responsavel extends Model
 
     public function alunos()
     {
-        return $this->belongsToMany(Aluno::class);
+        return $this->belongsToMany(Aluno::class, 'responsavel_aluno');
     }
 }
