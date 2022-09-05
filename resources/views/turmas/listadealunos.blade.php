@@ -14,24 +14,27 @@
     <div class="card-header">
         <h3>Alunos matriculados:</h3>
     </div>
-    <div class="card-body">
-        <div class="my-4">
-        Não há alunos matriculados nessa turma por enquanto
-        </div>
-        <div class="my-4">
-            <div class="row">
-                <div class="col-md-4">
-                    <input type="text" class="form-control @error('buscaaluno') is-invalid @enderror" id="buscaaluno" name="buscaaluno" placeholder="Matricular aluno(a)"/>
-                    <button id="btn_add_aluno" type="button" style="margin-top:5px;" class="btn btn-outline-success" onclick="add_aluno()">+</button>
+    <form action="{{ route('turma.vincularalunos',$turma->id) }}" method="POST">
+    @csrf
+        <div class="card-body">
+            <div class="my-4">
+            Não há alunos matriculados nessa turma por enquanto
+            </div>
+            <div class="my-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control @error('buscaaluno') is-invalid @enderror" id="buscaaluno" name="buscaaluno" placeholder="Matricular aluno(a)"/>
+                        <button id="btn_add_aluno" type="button" style="margin-top:5px;" class="btn btn-outline-success" onclick="add_aluno()">+</button>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <table id="listaAlunos"></table>
+                    <div id="botoesLista"></div>
                 </div>
             </div>
-            <div>
-                <ol id="listaAlunos"></ol>
-            </div>
         </div>
-        </form>
-    </div>
-</form>
+    </form>
+</div>
 @endsection
 @section('javascript')
 @include('includes.toastr')
@@ -53,7 +56,11 @@
     function add_aluno() {
         var nomealuno=document.getElementById("buscaaluno").value;
         if(nomealuno!=""){
-            document.getElementById('listaAlunos').innerHTML += "<li name='aluno_a_adicionar[]'>"+nomealuno+"</li>";
+            document.getElementById('botoesLista').innerHTML="<button type='submit' class='btn btn-primary'>Vincular alunos</button>";
+
+            document.getElementById('listaAlunos').innerHTML += "<tr><td width='400px'>";
+            document.getElementById('listaAlunos').innerHTML += "<input type='text' class='form-control' style='background-color:transparent; border: 0; font-size: 1em;' name='aluno_a_matricular[]' value='"+nomealuno+"' readonly/>";
+            document.getElementById('listaAlunos').innerHTML +="</td><td>Remover</td></tr>"; 
         }
     }
 </script>

@@ -66,11 +66,12 @@ class TurmaController extends Controller
         $turma->livros()->associate($livro);
         $turma->status="Em formação";
         $turma->save();
-        if($turma->modalide==='Connections'){
+        /*if($turma->modalide==='Connections'){
             return redirect()->route('turma.infoconnections',$turma->id)->with('success', 'Turma connections criada com sucesso');;
         }else if($turma->modalidade='Interactive'){
             return redirect()->route('turma.infointeractive',$turma->id)->with('success', 'Turma interactive criada com sucesso');;
-        }
+        }*/
+        return view('turmas.listadealunos')->with('turma',$turma);
     }
     
     public function edit($id)
@@ -97,10 +98,6 @@ class TurmaController extends Controller
             }else if($turma->modalidade=='Interactive'){
                 return view('turmas.infointeractive')->with('turma',$turma);
             }
-                /*Tentando fazer uma blade info que funcione para ambas as
-                modalidades. Se não der certo, comentar a linha abaixo e
-                descomentar os 'return view' de cada if*/
-                //return view('turmas.info',compact('turma','aux_nomeserie','aux_nomelivro'));
         }else{
             return view('turmas.index')->with('turmas' , $turmas);
         }
@@ -151,6 +148,7 @@ class TurmaController extends Controller
             return redirect()->route('turma.index')->with('success', 'Turma alterada com sucesso');;
         }else{
             // retorna página de listagem com aviso de livro não encontrado na base
+            $turmas = Turma::all();
             return view('turmas.index')->with('turmas' , $turmas);
         }
     }
@@ -173,8 +171,23 @@ class TurmaController extends Controller
             // retorna página de listagem com aviso de turma não encontrada na base
         }
     }
-    public function matricularalunos(Request $request){
-        //$lesson->livros()->associate($livro);
+    public function vincularalunos(Request $request,$id){
+        $vetor_alunos=$request->input('aluno_a_matricular');
+        //dd($vetor_alunos);
+	    foreach($vetor_alunos as $aluno_a_buscar){
+            $alunobuscado=Aluno::where('nome',$aluno_a_buscar)->first();
+            if($alunobuscado==NULL){
+                //CRIAR ACIMA UM VETOR COM ALUNOS QUE NÃO FORAM ENCONTRADOS E ADICIONAR
+                //O NOME CONTIDO EM ALUNO_A_BUSCAR A ELE
+            }else{
+                $alunobuscado->turmas()->attach($id);
+            }
+        }
+        $turma=Turma::findOrFail($id);
+        $turmas = Turma::all();
+        return view('turmas.index')->with('turmas' , $turmas);
+        //return view('turmas.create',compact('users','livros'));
+        //return redirect('/turmas')->with('msg','Alunos vinculados com sucesso à turma '.$turma->id);
     }
     
     public function listadealunos(Request $request){
