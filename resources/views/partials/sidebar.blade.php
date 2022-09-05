@@ -2,15 +2,11 @@
     @include('partials.navbar')
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">SISGAP</span> </a>
+            <div> <a href="{{ route('home') }}" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">SISGAP</span> </a>
                 <div class="nav_list">
-                    <a href="#" class="nav_link">
+                    <a href="{{ route('home') }}" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i>
                         <span class="nav_name">Dashboard</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-user nav_icon'></i>
-                        <span class="nav_name">Diário de Aula</span>
                     </a>
                     <a href="{{ route('turma.index') }}" class="nav_link {{ Request::is('turmas') ? 'active' : '' }}">
                         <i class='icofont-group'></i>

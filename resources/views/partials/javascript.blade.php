@@ -9,6 +9,9 @@
 <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/popper.js') }}"></script>
 
+<!-- TypeHead --> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
 <script src="{{ asset('js/main.js') }}"></script>
 <script src="{{ asset('js/sidebar/sidebars.js') }}"></script>
 
