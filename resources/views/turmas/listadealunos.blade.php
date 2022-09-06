@@ -14,26 +14,54 @@
     <div class="card-header">
         <h3>Alunos matriculados:</h3>
     </div>
-    <form action="{{ route('turma.vincularalunos',$turma->id) }}" method="POST">
-    @csrf
         <div class="card-body">
             <div class="my-4">
-            Não há alunos matriculados nessa turma por enquanto
+                @if(!empty($vetoralunos))
+                    <table class="table">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Data de nascimento</th>
+                            <th scope="col">Remover</th>
+                        </tr>
+                    @foreach($vetoralunos as $am)
+                        <tr>
+                            <th scope="col">{{$am->id}}</td>
+                            <td>{{$am->nome}}</td>
+                            <td>{{$am->data_nascimento}}</td>
+                            <td>
+                                <form class="d-inline-block" method="POST" action="{{ route('turma.desvincularaluno',['id'=>$turma->id,'idaluno'=>$am->id]) }}">
+                                @csrf
+                                @method('POST')
+                                <button id="excluir">
+                                    <a class="remove-icon"><i class="icofont-close-circled"></i></a>
+                                </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </table>
+                @else
+                    Não há alunos matriculados nessa turma no momento
+                @endif
             </div>
             <div class="my-4">
+            <form action="{{ route('turma.vincularalunos',$turma->id) }}" method="POST">
+            @csrf
                 <div class="row">
                     <div class="col-md-4">
                         <input type="text" class="form-control @error('buscaaluno') is-invalid @enderror" id="buscaaluno" name="buscaaluno" placeholder="Matricular aluno(a)"/>
                         <button id="btn_add_aluno" type="button" style="margin-top:5px;" class="btn btn-outline-success" onclick="add_aluno()">+</button>
                     </div>
+                    
                 </div>
-                <div class="mt-4">
+                <div class="mt-4" class="shadow-p-3 mb-5 bg-white rounded">
                     <table id="listaAlunos"></table>
                     <div id="botoesLista"></div>
                 </div>
+            </form>
             </div>
         </div>
-    </form>
 </div>
 @endsection
 @section('javascript')
@@ -58,9 +86,9 @@
         if(nomealuno!=""){
             document.getElementById('botoesLista').innerHTML="<button type='submit' class='btn btn-primary'>Vincular alunos</button>";
 
-            document.getElementById('listaAlunos').innerHTML += "<tr><td width='400px'>";
+            //document.getElementById('listaAlunos').innerHTML += "<tr><td width='400px'>";
             document.getElementById('listaAlunos').innerHTML += "<input type='text' class='form-control' style='background-color:transparent; border: 0; font-size: 1em;' name='aluno_a_matricular[]' value='"+nomealuno+"' readonly/>";
-            document.getElementById('listaAlunos').innerHTML +="</td><td>Remover</td></tr>"; 
+            //document.getElementById('listaAlunos').innerHTML +="</td></tr>"; 
         }
     }
 </script>

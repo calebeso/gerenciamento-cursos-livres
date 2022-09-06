@@ -130,6 +130,9 @@ input[type="search"]:focus-visible {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
     width: 620px;
     align-self: center;
+    justify-content: center;
+    justify-items: center;
+    
 }
 .card-header.customCardHeader {
     background-color: var(--main-color);
@@ -158,7 +161,10 @@ input[type="search"]:focus-visible {
     padding-top: 2.5rem;
 }
 .container.customContainer{
-    max-width: 1180px;
+    max-width: 960px !important;
+    justify-content: center;
+    justify-items: center;
+    padding-right: 26rem;
    
 }
 
