@@ -8,6 +8,11 @@ use App\Models\Responsavel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Controller responsavel pela manipulação de responsaveis.
+ * @author Eduardo Rezes
+ * @version 1.0
+ */
 class ResponsavelController extends Controller
 {
     public function index($id)
@@ -23,7 +28,7 @@ class ResponsavelController extends Controller
     {
         $rules = [
             'nome' => 'required',
-            'parentesco' => 'required|parentesco',
+            'parentesco' => 'required',
             'telefone' => 'required'
         ];
 
@@ -57,9 +62,9 @@ class ResponsavelController extends Controller
     public function edit($id_aluno, $id_responsavel)
     {
         $aluno = Aluno::find($id_aluno);
-
-
+            
         if($aluno->exists()){
+            $responsavel = Responsavel::findOrFail($id_responsavel);
             return view('alunos.responsaveis.edit', compact('aluno', 'responsavel'));
         }
     }
@@ -68,7 +73,7 @@ class ResponsavelController extends Controller
     {
         $rules = [
             'nome' => 'required',
-            'parentesco' => 'required|parentesco',
+            'parentesco' => 'required',
             'telefone' => 'required',
         ];
 
@@ -93,12 +98,11 @@ class ResponsavelController extends Controller
             $responsavel->nome = $request->nome;
             $responsavel->parentesco = $request->parentesco ;
             $responsavel->telefone = $request->telefone;
-            $responsavel->alunos()->associate($aluno);
             $responsavel->save();
             
-            return redirect()->route('responsaveis.index', $id)->with('success', 'Responsável atualizado com sucesso');
+            return redirect()->route('responsavel.index', $id)->with('success', 'Responsável atualizado com sucesso');
         }else{
-            return redirect()->route('responsaveis.index', $id)->with('error', 'Aluno não encontrado');
+            return redirect()->route('responsavel.index', $id)->with('error', 'Opss! Algo deu errado');
         }
     }
 
@@ -109,11 +113,13 @@ class ResponsavelController extends Controller
         if($aluno->exists())
         {
             $responsavel = Responsavel::findOrFail($id);
+            //Desvincula o responsavel do aluno
+            $responsavel->alunos()->detach($aluno->id);
             $responsavel->delete();
             
-            return redirect()->route('responsaveis.index', $aluno_id)->with('success', 'Responsável excluído com sucesso');
+            return redirect()->route('responsavel.index', $aluno_id)->with('success', 'Responsável excluído com sucesso');
         }else{
-            return redirect()->route('responsaveis.index', $aluno_id)->with('error', 'Aluno não encontrado');
+            return redirect()->route('responsavel.index', $aluno_id)->with('error', 'Opss! Algo deu errado');
         }
     }
 }

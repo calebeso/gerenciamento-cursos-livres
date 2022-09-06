@@ -23,7 +23,7 @@
 @include('alunos.responsaveis.create', ['aluno_id' => $aluno->id])
 <div class="card">
     <div class="card-body">
-        <table class="table" id="responsavel">
+        <table class="table table-striped table-hover" id="responsavel">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -37,13 +37,11 @@
                 @forelse($aluno->responsaveis as $responsavel)
                 <tr>
                     <td scope="row">
-                        <span class="badge badge-phil bg-dark">
-                            # {{ $responsavel->id }}
-                        </span>
+                        <span class="badge badge-phil bg-dark"># {{ $responsavel->id }}</span>
                     </td>
-                    <th>{{ $responsavel->nome }}</th>
-                    <th>{{ $responsavel->parentesco }}</th>
-                    <th>{{ $responsavel->telefone }}</th>
+                    <td>{{ $responsavel->nome }}</td>
+                    <td>{{ $responsavel->parentesco }}</td>
+                    <td>{{ $responsavel->telefone }}</td>
                     <td>
                         <a href="{{ route('responsavel.edit', ['id' => $aluno->id, 'responsavel' => $responsavel->id] ) }}" class="edit-icon me-1">
                             <i class="icofont-ui-edit"></i>Editar
@@ -65,6 +63,7 @@
 </div>
 @endsection
 @section('javascript')
+@include('includes.toastr')
 <script type="text/javascript">
     $(document).ready(function() {
         $('#responsavel').DataTable({
@@ -74,10 +73,9 @@
             "bLengthChange": false,
             "language": {
                 "emptyTable": "Nenhum registro encontrado",
-                "search": "Procurar "
+                "search": "Procurar"
             },
         });
     });
 </script>
-@include('includes.toastr')
 @endsection
