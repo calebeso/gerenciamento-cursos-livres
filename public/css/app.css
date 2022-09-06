@@ -182,6 +182,19 @@ input[type="search"]:focus-visible {
     padding-top: 12px;
 }
 
-.col-md-8.custom{
+.col-xl-4.col-md-12{
+    padding-bottom: 32px;
+}
 
+.container-fluid.dash{
+    padding-top: 32px;
+}
+
+.card.dash{
+    box-shadow: rgba(0, 0, 0, 0.01) 0px 20px 25px -8px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    max-width: 480px;
+}
+
+.row.dash{
+    max-width: 1550px;
 }

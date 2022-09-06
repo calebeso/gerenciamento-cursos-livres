@@ -92,7 +92,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <!--<div class="row">
             <div class="form-group">
                 <label class="mt-4 mb-2" for="login">{{ __('Login *') }}</label>
                 <input id="login" type="text" class="form-control @error('login') is-invalid @enderror" name="login" value="{{ old('login') }}" required autocomplete="login" autofocus>
@@ -103,7 +103,7 @@
                 </span>
                 @enderror
             </div>
-        </div>
+        </div> -->
 
         <div class="row">
             <div class="col">
