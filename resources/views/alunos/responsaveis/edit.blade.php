@@ -10,7 +10,7 @@
     </nav>
 </div>
 <div class="my-4">
-    <h3>Editar responsavel - {{ $responsavel->nome }}</h3>
+    <h3>Editar {{ $responsavel->nome }}</h3>
 </div>
 <div class="card">
     <div class="card-body">
@@ -22,14 +22,14 @@
                     <label for="inputName" class="form-label mt-4 mb-2">Nome</label>
                     <input type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" id="name" value="{{ $responsavel->nome }}">
                     @error('nome')
-                    <div class="invalid-feedback">{{$message}}</div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <label for="inputParentesco" class="form-label mt-4 mb-2">Parentesco</label>
                     <input type="text" class="form-control @error('parentesco') is-invalid @enderror" name="parentesco" id="parentesco" value="{{ $responsavel->parentesco }}">
-                    @error('email')
-                    <div class="invalid-feedback">{{$message}}</div>
+                    @error('parentesco')
+                    <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="col-md-6">

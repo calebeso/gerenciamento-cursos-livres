@@ -30,7 +30,7 @@
                     <th scope="col">Nome</th>
                     <th scope="col">parentesco</th>
                     <th scope="col">telefone</th>
-                    <th></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -63,7 +63,6 @@
 </div>
 @endsection
 @section('javascript')
-@include('includes.toastr')
 <script type="text/javascript">
     $(document).ready(function() {
         $('#responsavel').DataTable({
@@ -78,4 +77,5 @@
         });
     });
 </script>
+@include('includes.toastr')
 @endsection
