@@ -51,7 +51,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     Route::post('/cadastrar-turma',[TurmaController::class,'store'])->name('turma.store');
     Route::post('/turmas/{id}/vincular-alunos',[TurmaController::class,'vincularalunos'])->name('turma.vincularalunos');
     Route::post('/turmas/{id}/desvincular-aluno/{idaluno}',[TurmaController::class,'desvincularaluno'])->name('turma.desvincularaluno');
-    //Route::get('/turmas/{id}/desvincular-aluno/{idaluno}',[TurmaController::class,'desvincularaluno'])->name('turma.desvincularaluno');
+    Route::get('/turmas/{id}/vincular-aluno-a-livro/{idaluno}',[TurmaController::class,'vincularalunoalivro'])->name('turma.vincularalunoalivro');
+    Route::post('/turmas/alterar-livro/{idaluno}',[TurmaController::class,'alterarlivro'])->name('turma.alterarlivro');
     Route::get('/editar-turma/{id}',[TurmaController::class,'edit'])->name('turma.edit');
     Route::get('/editar-turma-connections/{id}',[TurmaController::class,'edit'])->name('turma.editconnections');
     Route::get('/editar-turma-interactive/{id}',[TurmaController::class,'edit'])->name('turma.editinteractive');
