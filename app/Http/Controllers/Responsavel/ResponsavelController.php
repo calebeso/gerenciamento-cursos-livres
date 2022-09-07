@@ -74,13 +74,13 @@ class ResponsavelController extends Controller
         $rules = [
             'nome' => 'required',
             'parentesco' => 'required',
-            'telefone' => 'required',
+            'telefone' => 'required'
         ];
 
         $message = [
             'nome.required' => 'O campo nome é obrigatório',
             'parentesco.required' => 'O campo parentesco é obrigatório',
-            'telefone.required' => 'O campo telefone é obrigatório',
+            'telefone.required' => 'O campo telefone é obrigatório'
         ];
 
         $validate = Validator::make($request->all(), $rules, $message);
@@ -102,7 +102,7 @@ class ResponsavelController extends Controller
             
             return redirect()->route('responsavel.index', $id)->with('success', 'Responsável atualizado com sucesso');
         }else{
-            return redirect()->route('responsavel.index', $id)->with('error', 'Opss! Algo deu errado');
+            return redirect()->route('responsavel.index', $id)->with('error', 'Responsável não encontrado');
         }
     }
 
