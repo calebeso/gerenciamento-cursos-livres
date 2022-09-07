@@ -55,3 +55,9 @@
 </div>
 </form>
 @endsection
+@section('javascript')
+@include('includes.toastr')
+<script>
+    $('#telefone').mask('(00) 0 0000-0000');
+</script>
+@endsection
