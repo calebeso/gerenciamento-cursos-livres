@@ -9,6 +9,8 @@ class Responsavel extends Model
 {
     use HasFactory;
 
+    protected $table = 'responsavel';
+
     protected $fillable = [
         'nome',
         'parentesco',
@@ -17,6 +19,6 @@ class Responsavel extends Model
 
     public function alunos()
     {
-        return $this->belongsToMany(Aluno::class);
+        return $this->belongsToMany(Aluno::class, 'responsavel_aluno');
     }
 }

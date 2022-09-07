@@ -57,6 +57,9 @@
                                 <a class="remove-icon"><i class='icofont-ui-delete'></i>Excluir</a>
                             </button>
                         </form>
+                        <a href="{{ route('responsavel.index', $aluno->id ) }}" class="edit-icon me-1">
+                            <i class="icofont-ui-user-group"></i>Responsavel
+                        </a>
                     </td>
                 </tr>
                 @endforeach
@@ -102,6 +105,5 @@
             },
         })
     });
-</script>
 </script>
 @endsection
