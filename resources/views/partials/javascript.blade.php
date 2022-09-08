@@ -4,6 +4,9 @@
 <!-- Mask  -->
 <script src="{{ asset('js/mask/jquery.mask.min.js') }}"></script>
 
+<!-- FontAwesome  -->
+<script src="{{ asset('plugins/font-awesome/js/all.min.js') }}"></script>
+
 <!-- Bootstrap  -->
 <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
@@ -14,9 +17,6 @@
 
 <script src="{{ asset('js/main.js') }}"></script>
 <script src="{{ asset('js/sidebar/sidebars.js') }}"></script>
-
-<!-- NiceSelect -->
-<script src="{{ asset('plugins/niceselect/jquery.nice-select.js') }}"></script>
 
 <!-- Datatable -->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
