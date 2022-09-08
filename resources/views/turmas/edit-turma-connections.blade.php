@@ -4,8 +4,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('turma.index') }}">Turmas /</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Editar Turma Connections #{{ $turma->id }}
-            </li>
+            <li class="breadcrumb-item active" aria-current="page">Editar Turma Connections #{{ $turma->id }} </li>
         </ol>
     </nav>
 </div>
@@ -21,8 +20,107 @@
         <form method="POST" action="{{ route('turma.update', $turma->id) }}">
         @method('PATCH')
         @csrf
-        <div class="row">
-            <div class="form-group">
+        <div class="row g-3">
+            <div class="col">
+                <label class="form-label mt-4 mb-2" for="Professor"><h5>Professor(a)</h5></label>
+                
+                <div class="col">
+                    <select name="user" class="form-control" id="user">
+                        <option value="">---</option>
+                        @foreach($users as $user)
+                        <option value="{{ $user->id }}" {{$turma->users->id===$user->id ? 'selected':''}}>
+                            {{ $user->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-auto">
+                <label class="form-label mt-4 mb-2" for="Professor"><h5>Código</h5></label>
+
+                <div class="col-auto">
+                    <input type="text" name="id" class="form-control" value="{{ $turma->id }}" id="inputId" readonly>
+                </div>
+            </div>
+            <div class="col-auto">
+                <label class="form-label mt-4 mb-2" for="modalidade"><h5>Modalidade</h5></label>
+
+                <div class="col-auto">
+                <input type="text" name="modalidade" class="form-control" value="{{ $turma->modalidade }}" id="inputModalidade" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row g-3">
+            <div class="col-auto">
+                <label class="form-label mt-4 mb-2" for="status"><h5>Status</h5></label>
+               
+                <select name="status" class="form-select" id="status">
+                    <option value="Ativa" {{$turma->status==='Ativa' ? 'selected':''}}>Ativa</option>
+                    <option value="Em formação" {{$turma->status==='Em formação' ? 'selected':''}} >Em formação</option>
+                    <option value="Encerrada" {{$turma->status==='Encerrada' ? 'selected':''}} >Encerrada</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <label class="form-label mt-4 mb-2" for="Idioma"><h5>Idioma</h5></label>
+                <select name="idioma" class="form-select" id="idioma">
+                    <option value="">---</option>
+                    <option value="Inglês" {{$turma->idioma==='Inglês'?'selected':''}}>Inglês</value>
+                    <option value="Espanhol" {{$turma->idioma==='Espanhol'?'selected':''}}>Espanhol</value>
+                    <option value="Alemão" {{$turma->idioma==='Alemão'?'selected':''}}>Alemão</value>
+                    <option value="Francês" {{$turma->idioma==='Francês'?'selected':''}}>Francês</value>
+                    <option value="Italiano" {{$turma->idioma==='Italiano'?'selected':''}}>Italiano</value>
+                    <option value="Chinês" {{$turma->idioma==='Chinês'?'selected':''}}>Chinês</value>
+                    <option value="Japonês" {{$turma->idioma==='Japonês'?'selected':''}}>Japonês</value>
+                    <option value="Português" {{$turma->idioma==='Português para estrangeiros'?'selected':''}}>Português para estrangeiros</value>
+                </select>
+            </div>
+            <div class="col-auto" id="divlivro">
+                <label class="form-label mt-4 mb-2" for="inputLivro"><h5>Livro</h5></label>
+
+                <select name="livro" class="form-select" id="livro">
+                    <option value="">---</option>
+                    @foreach($livros as $livro)
+                    <option value="{{ $livro->id }}" {{$turma->livros->id===$livro->id ? 'selected':''}}>
+                        {{ $livro->nome }} ({{ $livro->serie }})
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-auto">
+                <label class="form-label mt-4 mb-2" for="Dias da semana"><h5>Dias da semana</h5></label>
+                <fieldset>
+                    <div>
+                        <input class="form-check-input" type="checkbox" id="segunda-feira" name="dias_semana[]" value="Segunda">
+                        <label class="form-check-label me-2" for="Segunda-feira">Segunda-feira</label>
+                        <input class="form-check-input" type="checkbox" id="terça-feira" name="dias_semana[]" value="Terça">
+                        <label class="form-check-label me-2" for="Terça-feira">Terça-feira</label>
+                        <input class="form-check-input" type="checkbox" id="quarta-feira" name="dias_semana[]" value="Quarta">
+                        <label class="form-check-label me-2" for="Quarta-feira">Quarta-feira</label>
+                        <input class="form-check-input" type="checkbox" id="quinta-feira" name="dias_semana[]" value="Quinta">
+                        <label class="form-check-label me-2" for="Quinta-feira">Quinta-feira</label>
+                        <input class="form-check-input" type="checkbox" id="sexta-feira" name="dias_semana[]" value="Sexta">
+                        <label class="form-check-label me-2" for="Sexta-feira">Sexta-feira</label>
+                        <input class="form-check-input" type="checkbox" id="sábado" name="dias_semana[]" value="Sábado">
+                        <label class="form-check-label me-2" for="Sábado">Sábado</label>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row md-12 mt-4 g-3">
+            <label for="Horário" class="form-label"><h5>Horário</h5></label>
+
+            <div class="col-auto ml-3">
+                <input type="text" name="hr_inicio" class="form-control form-control-sm" id="hr_inicio" value="{{$turma->hr_inicio}}">
+            </div>
+            <div class="col-auto justify-center">
+                <h6>às</h6>
+            </div>
+            <div class="col-auto">
+                <input type="text" name="hr_termino" class="form-control form-control-sm" id="hr_termino" value="{{$turma->hr_termino}}">
+            </div>
+        </div>
+            <!-- <div class="form-group">
                 <div class="col-md-6">
                     <label for="Professor">Professor(a)</label>
                     <select name="user" class="form-control" id="user">
@@ -34,24 +132,24 @@
                         @endforeach
                     </select>
                 </div>
-            </div>
-            <div class="col-md-2">
+            </div> -->
+            <!-- <div class="col-md-2">
                 <label for="id" class="form-label mt-4 mb-2">Código</label>
                 <input type="text" name="id" class="form-control" value="{{ $turma->id }}" id="inputId" readonly>
-            </div>
-            <div class="col-md-2">
+            </div> -->
+            <!-- <div class="col-md-2">
                 <label for="modalidade" class="form-label mt-4 mb-2">Modalidade</label>
                 <input type="text" name="modalidade" class="form-control" value="{{ $turma->modalidade }}" id="inputModalidade" readonly>
-            </div>
-            <div class="col-md-2">
+            </div> -->
+            <!-- <div class="col-md-2">
                 <label for="status" class="form-label mt-4 mb-2">Status</label>
                 <select name="status" class="form-control" id="status">
                     <option value="Ativa" {{$turma->status==='Ativa' ? 'selected':''}}>Ativa</option>
                     <option value="Em formação" {{$turma->status==='Em formação' ? 'selected':''}} >Em formação</option>
                     <option value="Encerrada" {{$turma->status==='Encerrada' ? 'selected':''}} >Encerrada</option>
                 </select>
-            </div>
-            <div class="form-group">
+            </div> -->
+            <!-- <div class="form-group">
                 <label for="Dias da semana" class="form-label mt-4 mb-2">Dias da semana</label>
                 <fieldset>
                     <div>
@@ -69,8 +167,8 @@
                         <label for = "Sábado">Sábado</label>
                     </div>
                 </fieldset>
-            </div>
-            <div class="form-group">
+            </div> -->
+            <!-- <div class="form-group">
                 <div class="col-md-6">
                     <label for="Idioma" class="form-label mt-4 mb-2">Idioma</label>
                     <select name="idioma" class="form-control" id="idioma">
@@ -85,8 +183,8 @@
                         <option value="Português" {{$turma->idioma==='Português para estrangeiros'?'selected':''}}>Português para estrangeiros</value>
                     </select>
                 </div>
-            </div>
-            <div class="col-md-6" id="divlivro">
+            </div> -->
+            <!-- <div class="col-md-6" id="divlivro">
                 <label for="inputLivro" class="form-label mt-4 mb-2">Livro</label>
                 <select name="livro" class="form-control" id="livro">
                     <option value="">---</option>
@@ -96,8 +194,8 @@
                     </option>
                     @endforeach
                 </select>
-            </div>
-            <div class="row-md-3">
+            </div> -->
+            <!-- <div class="row-md-3">
             <label for="Horário" class="form-label">Horário</label>
                 <div class="col-md-3">
                     <input type="text" name="hr_inicio" class="form-control" id="hr_inicio" value="{{$turma->hr_inicio}}">
@@ -106,16 +204,14 @@
                 <div class="col-md-3">
                     <input type="text" name="hr_termino" class="form-control" id="hr_termino" value="{{$turma->hr_termino}}">
                 </div>
-            </div>
-        </div>
+            </div> -->
+        <!-- </div> -->
         <div class="row my-4">
             <div class="d-flex justify-content-start">
                 <button type="submit" class="btn btn-success me-1">
                     {{ __('Salvar') }}
                 </button>
-                <button class="btn btn-danger">
-                    {{ __('Cancelar') }}
-                </button>
+                <a class="btn btn-danger" href="{{ route('turma.index')}}" role="button">Cancelar</a>
             </div>
         </div>
         </form>
