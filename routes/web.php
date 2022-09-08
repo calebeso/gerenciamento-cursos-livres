@@ -35,8 +35,9 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
     //Hora Aula
     Route::get('/turma/{id}/visualizar-diario/{diario}', [HoraAulaController::class, 'show'])->name('diario.show');
-    Route::get('/turma/{id}/editar-diario/{diario}', [DiarioAulaController::class, 'edit'])->name('diario.edit');
-    Route::post('/turma/{id}/novo-diario', [DiarioAulaController::class, 'store'])->name('diario.store');
+    Route::get('/turma/{id}/editar-diario/{diario}', [HoraAulaController::class, 'edit'])->name('diario.edit');
+    Route::post('/turma/{id}/novo-diario', [HoraAulaController::class, 'store'])->name('diario.store');
+    Route::patch('/turma/{id}/atualizar-diario/{diario}', [HoraAulaController::class, 'update'])->name('diario.update');
 
     //Livros
     Route::get('/livros', [LivroController::class, 'index'])->name('livro.index');
