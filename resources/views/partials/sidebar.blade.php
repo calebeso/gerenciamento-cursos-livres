@@ -4,7 +4,7 @@
         <nav class="nav">
             <div> <a href="{{ route('home') }}" class="nav_logo"> <i class='second-main-color bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">SISGAP</span> </a>
                 <div class="nav_list">
-                    <a href="{{ route('home') }}" class="nav_link">
+                    <a href="{{ route('home') }}" class="nav_link {{ Request::is('dashboard') ? 'active' : '' }}">
                         <i class='bx bx-grid-alt nav_icon'></i>
                         <span class="nav_name">Dashboard</span>
                     </a>
