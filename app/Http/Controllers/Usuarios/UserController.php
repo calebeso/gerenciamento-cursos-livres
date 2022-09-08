@@ -68,7 +68,6 @@ class UserController extends Controller
             'rg'  => 'required', 
             'telefone' => 'required',
             'endereco' => 'required',
-            'login' => 'required',
             'role' => 'required'
         ];
 
@@ -84,7 +83,6 @@ class UserController extends Controller
             'rg.required' => 'O campo RG é obrigatório',
             'telefone.required' => 'O campo telefone é obrigatório',
             'endereco.required' => 'O campo endereço é obrigatório',
-            'login.required' => 'O campo login é obrigatório',
             'role.required' => 'O campo permissão é obrigatório',
         ];
 

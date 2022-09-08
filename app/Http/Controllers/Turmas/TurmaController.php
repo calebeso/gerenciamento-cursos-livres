@@ -75,7 +75,7 @@ class TurmaController extends Controller
         $turma = Turma::find($id);
         $users=User::all();
         if($turma->exists()){
-            if($turma->modalidade==='Connections'){
+            if($turma->modalidade==='connections'){
                 $livros=Livro::all();
                 return view('turmas.edit-turma-connections',compact('turma','users','livros'));
             }else if($turma->modalidade=='Interactive'){
@@ -89,7 +89,7 @@ class TurmaController extends Controller
     {
         $turma = Turma::find($id);
         if($turma->exists()){
-            if($turma->modalidade=='Connections'){
+            if($turma->modalidade=='connections'){
                 return view('turmas.infoconnections')->with('turma',$turma);
             }else if($turma->modalidade=='Interactive'){
                 return view('turmas.infointeractive')->with('turma',$turma);
