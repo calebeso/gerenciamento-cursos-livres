@@ -21,7 +21,7 @@ class TurmaController extends Controller
 {
     public function index()
     {
-        $turmas = Turma::all();
+        $turmas = Turma::where('user_id', auth()->user()->id)->get();
         return view('turmas.index')->with('turmas' , $turmas);
     }
     

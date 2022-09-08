@@ -59,7 +59,7 @@
 
                             <select class="form-select " name="licao_id" id="licaoDiario" disabled>
                                 @forelse($turma->livros->licoes as $licao)
-                                <option value="{{ $licao->id == $diario->turmas->licao_id ? 'selected' : '' }}">{{ $licao->nome }}</option>
+                                <option value="{{ $licao->id }}" {{ $licao->id == $diario->horasAula["0"]["licao_id"] ? 'selected' : '' }}>{{ $licao->nome }}</option>
                                 @empty
 
                                 @endforelse
@@ -104,7 +104,7 @@
                         @if($turma->modalidade === "connections")
                         <select class="form-select " name="licao[]" id="licao" disabled>
                             @forelse($turma->livros->licoes as $licao)
-                            <option value="{{ $licao->id }}">{{ $licao->nome }}</option>
+                            <option value="{{ $licao->id }}" {{ $aula->licao_id == $licao->id ? 'selected' : '' }}>{{ $licao->nome }}</option>
                             @empty
                             <option value="">Nenhuma lição disponível</option>
                             @endforelse

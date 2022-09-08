@@ -157,6 +157,6 @@ class HoraAulaController extends Controller
             $data->save();
         }
 
-        return redirect()->route('diario.index', $turma->id)->with('success', 'Novo diário registrado com sucesso!');
+        return redirect()->route('diario.index', $turma->id)->with('success', 'Diário de Aula atualizado com sucesso!');
     }
 }
