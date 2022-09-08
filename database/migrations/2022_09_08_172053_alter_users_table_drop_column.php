@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('turma', function (Blueprint $table) {
-            $table->unsignedBigInteger('livro_id')->nullable()->change();
-            $table->dropForeign('turma_livro_id_foreign');
-            $table->foreign('livro_id')->references('id')->on('livro')->onDelete('set null');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('login');
         });
     }
 
@@ -27,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('turma', function (Blueprint $table) {
-            $table->unsignedBigInteger('livro_id')->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('login');
         });
     }
 };
