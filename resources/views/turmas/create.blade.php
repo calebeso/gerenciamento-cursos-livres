@@ -9,9 +9,9 @@
     @csrf
     <div class="form-group">
         <b><label for="Modalidade">Modalidade</label><br></b>
-        <input type="radio" name="modalidade" id="modalidade" value="Connections">
+        <input type="radio" name="modalidade" id="modalidade" value="connections">
         <label for="Connections">Connections</label>
-        <input type="radio" name="modalidade" id="modalidade" value="Interactive">
+        <input type="radio" name="modalidade" id="modalidade" value="interactive">
         <label for="Interactive">Interactive</label>
     </div>
     <!--FAZER SELECT IDIOMAS-->
@@ -92,13 +92,13 @@ $(document).ready(function(){
     $('input:radio[name=modalidade]').change(function() {
         modalidade=this.value
         //alert('Você selecionou a modalidade: '+modalidade);
-        if(modalidade==="Interactive"){
+        if(modalidade==="interactive"){
             $('#divlivro').hide()
             $('#divserie').hide()
             $('#livro').value=null
             $('#serie').value=null
         }else{
-            if(modalidade==="Connections"){
+            if(modalidade==="connections"){
                 $('#divlivro').show()
                 $('#divserie').show()
             }
