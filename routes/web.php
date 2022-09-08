@@ -5,6 +5,7 @@ use App\Http\Controllers\Responsavel\ResponsavelController;
 use App\Http\Controllers\Livros\LivroController;
 use App\Http\Controllers\Licoes\LicaoController;
 use App\Http\Controllers\Usuarios\UserController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Turmas\TurmaController;
 use App\Http\Controllers\TypeAheadController;
@@ -24,6 +25,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     Route::get('/editar-usuario/{id}', [UserController::class, 'edit'])->name('user.edit');
     Route::patch('/atualizar-usuario/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/excluir-usuario/{id}', [UserController::class, 'delete'])->name('user.delete');
+
+  
 
     Route::get('/livros', [LivroController::class, 'index'])->name('livro.index');
     Route::get('/cadastrar-livro', [LivroController::class, 'create'])->name('livro.create');
@@ -74,6 +77,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
     //TURMAS -> rotas necessárias para Typeahead
     Route::get('/home',[TypeAheadController::class,'index']);
     Route::get('/autocomplete-search',[TypeAheadController::class,'autocompleteSearch']);
+    Route::get('/home',[TypeAheadController::class,'index']);
 });
 
 Auth::routes();
