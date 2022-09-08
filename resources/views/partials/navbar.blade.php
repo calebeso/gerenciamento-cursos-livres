@@ -6,7 +6,7 @@
                         <img src="{{ asset('images/profile.jpg')}}" alt="">
                 </a>
                 <ul class="dropdown-menu navbar_menu" aria-labelledby="dropdownMenu">
-                        <li><a class="dropdown-item disabled" href="#">{{ Auth::user()->login }}</a></li>
+                        <li><a class="dropdown-item disabled" href="#">{{ Auth::user()->email }}</a></li>
                         <form action="{{ url('/logout') }}" method="post" id="logoutForm" style="display: none;">
                                 @csrf
                                 <button type="submit"></button>

@@ -4,7 +4,7 @@
 <div class="container customContainer">
     <div class="row justify-content-center custom">
         <div class="col-md-8 custom">
-            <div class="card customCard">
+            <div class="card customCard mb-4">
                 <div class="card-header customCardHeader">{{ __('SISGAP') }}</div>
 
                 <div class="card-body customCardBody">

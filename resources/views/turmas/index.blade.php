@@ -1,17 +1,21 @@
 @extends('layouts.app')
 @section('content')
-<div class="card">
-    <div class="card-header">
-        <h2 class="card-title">Turmas</h2>
-        <a href="{{ route('turma.create') }}"><button type="button" class="btn btn-primary">Nova turma</button></a>
+<div class="row align-items-center">
+  <div class="col">
+    <div class="my-4">
+      <h3>Turmas</h3>
     </div>
-    <div class="card-body">
-        <p>Filtros</p>
-    </div>
+  </div>
+  <div class="col">
+    <a href="{{ route('turma.create') }}">
+      <button class="btn btn-success float-end">Nova Turma</button>
+    </a>
+  </div>
 </div>
+
 <div class="card">
     <div class="card-header">
-        <h2 class="card-title">Connections</h2>
+        <p class="card-title">Connections</p>
     </div>
     <div class="card-body">
         <table class="table" id="turmas_connections">
@@ -54,6 +58,8 @@
                         <a href="{{ route('turma.listadealunos', $turma->id ) }}" class="edit-icon me-1">
                             <i class="icofont-navigation-menu"> Ver integrantes</i>
                         </a>
+                        <a href="{{ route( 'diario.index', $turma->id ) }}" class="edit-icon me-1 main-color">
+                            <i class="icofont-paper"> Diários de aula</i>
                         <form class="d-inline-block" method="POST" action="{{ route('turma.delete', $turma->id ) }}">
                             @csrf
                             @method('DELETE')
@@ -61,8 +67,6 @@
                                 <a class="remove-icon"><i class='icofont-ui-delete'></i> Excluir</a>
                             </button>
                         </form>
-                        <a href="{{ route( 'diario.index', $turma->id ) }}" class="edit-icon me-1" style="color:#02b6bf;">
-                            <i class="icofont-paper"> Diários de aula</i>
                     </td>
                 </tr>
                 @endif
@@ -71,9 +75,9 @@
         </table>
     </div>
 </div>
-<div class="card">
+<div class="card mt-4">
     <div class="card-header">
-        <h2 class="card-title">Interactive</h2>
+        <p class="card-title">Interactive</p>
     </div>
     <div class="card-body">
         <table class="table" id="turmas_interactive">

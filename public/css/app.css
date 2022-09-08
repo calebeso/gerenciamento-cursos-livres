@@ -212,8 +212,8 @@ input[type="search"]:focus-visible {
     color: var(--second-main-color);
 }
 
-    .col-xl-4.col-md-12{
-    padding-bottom: 32px;
+.bg-main{
+    background-color: var(--main-color);
 }
 
 .container-fluid.dash{

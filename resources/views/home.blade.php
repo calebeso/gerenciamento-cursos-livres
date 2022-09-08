@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid dash">
+<div class="container">
     @include('partials.dashboard')
 </div>
 @endsection
