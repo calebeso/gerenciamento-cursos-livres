@@ -15,151 +15,141 @@ use Illuminate\Support\Facades\Validator;
  */
 class AlunoController extends Controller
 {
-  /**
-   * Pagina responsavel pela listagem de alunos
-   */
-  public function index()
-  {
-    $alunos = Aluno::all();
-    return view('alunos.index')->with('alunos', $alunos);
-  }
-
-  /**
-   * Função responsavel por mostrar o formulário de criar novo aluno
-   */
-  public function create()
-  {
-    return view('alunos.create');
-  }
-
-  /**
-   * Função responsavel por inserir um novo aluno no banco.
-   * @param StoreAlunoRequest $request
-   */
-  public function store(Request $request)
-  {
-    $rules = [
-      'nome' => 'required|string|max:255',
-      'cpf' => 'required|cpf',
-      'rg'  => 'required',
-      'telefone' => 'required',
-      'data_nascimento' => 'required|date'
-    ];
-
-    $messages = [
-      'nome.required' => 'O campo nome é obrigatório',
-      'cpf.required' => 'O campo CPF é obrigatório',
-      'cpf.cpf' => 'O campo CPF deve ser preenchido com um CPF válido',
-      'rg.required' => 'O campo RG é obrigatório',
-      'telefone.required' => 'O campo telefone é obrigatório',
-      'data_nascimento.required' => 'O campo data de nascimento é obrigatório',
-      'data_nascimento.date' => 'O campo data de nascimento deve ser preenchido com uma data válida',
-    ];
-
-    $validate = Validator::make($request->all(), $rules, $messages);
-
-    if ($validate->fails()) {
-      return redirect()->back()->with('error', $validate->errors()->first());
+    /**
+     * Pagina responsavel pela listagem de alunos
+     */
+    public function index()
+    {
+        $alunos = Aluno::all();
+        return view('alunos.index')->with('alunos', $alunos);
     }
 
-    $aluno = new Aluno();
-    $aluno->nome = $request->nome;
-    $aluno->data_nascimento = $request->data_nascimento;
-    $aluno->status = $request->status == "1";
-    $aluno->telefone = $request->telefone;
-    $aluno->rg = $request->rg;
-    $aluno->cpf = $request->cpf;
+    /**
+     * Função responsavel por mostrar o formulário de criar novo aluno
+     */
+    public function create()
+    {
+        return view('alunos.create');
+    }
 
-    $aluno->save();
+    public function store(Request $request)
+    {
+        $rules = [
+            'nome' => 'required|string|max:255',
+            'cpf' => 'required|cpf',
+            'rg'  => 'required',
+            'telefone' => 'required',
+            'data_nascimento' => 'required|date'
+        ];
 
-    $aluno->matricula = $aluno->id;
-    $aluno->update();
+        $messages = [
+            'nome.required' => 'O campo nome é obrigatório',
+            'cpf.required' => 'O campo CPF é obrigatório',
+            'cpf.cpf' => 'O campo CPF deve ser preenchido com um CPF válido',
+            'rg.required' => 'O campo RG é obrigatório',
+            'telefone.required' => 'O campo telefone é obrigatório',
+            'data_nascimento.required' => 'O campo data de nascimento é obrigatório',
+            'data_nascimento.date' => 'O campo data de nascimento deve ser preenchido com uma data válida',
+        ];
 
-    return redirect()->route('aluno.index')->with('success', 'Novo aluno cadastrado');
-  }
+        $validate = Validator::make($request->all(), $rules, $messages);
 
-  /**
-   * Função responsavel pela edição de um aluno.
-   * @param $id
-   */
-  public function edit($id)
-  {
-    $aluno = Aluno::find($id);
-    if ($aluno->exists()) {
+        if ($validate->fails()) {
+            return redirect()->back()->with('error', $validate->errors()->first());
+        }
+
+        $aluno = new Aluno();
+        $aluno->nome = $request->nome;
+        $aluno->data_nascimento = $request->data_nascimento;
+        $aluno->status = $request->status == "1";
+        $aluno->telefone = $request->telefone;
+        $aluno->rg = $request->rg;
+        $aluno->cpf = $request->cpf;
+
+        $aluno->save();
+
+        $aluno->matricula = $aluno->id;
+        $aluno->update();
+
+        return redirect()->route('aluno.index')->with('success', 'Aluno criado com sucesso');
+    }
+
+    /**
+     * Função responsavel pela edição de um aluno.
+     * @param $id
+     */
+    public function edit($id)
+    {
+        $aluno = Aluno::find($id);
+        if ($aluno->exists()) {
       return view('alunos.edit')->with('aluno', $aluno);
     } else {
-      // Retornar pagina de listagem com aviso de aluno não encontrado.
-    }
-  }
-
-  /**
-   * Função responsavel por atualizar um aluno no banco.
-   * @param StoreAlunoRequest $request
-   * @param $id
-   */
-  public function update(Request $request, $id)
-  {
-
-    $rules = [
-      'nome' => 'required|string|max:255',
-      'cpf' => 'required|cpf',
-      'rg'  => 'required',
-      'telefone' => 'required',
-      'data_nascimento' => 'required|date'
-    ];
-
-    $messages = [
-      'nome.required' => 'O campo nome é obrigatório',
-      'cpf.required' => 'O campo CPF é obrigatório',
-      'cpf.cpf' => 'O campo CPF deve ser preenchido com um CPF válido',
-      'rg.required' => 'O campo RG é obrigatório',
-      'telefone.required' => 'O campo telefone é obrigatório',
-      'data_nascimento.required' => 'O campo data de nascimento é obrigatório',
-      'data_nascimento.date' => 'O campo data de nascimento deve ser preenchido com uma data válida',
-    ];
-
-    $validate = Validator::make($request->all(), $rules, $messages);
-
-    if ($validate->fails()) {
-      return redirect()->back()->with('error', $validate->errors()->first());
+            return redirect()->route('aluno.index')->with('error', 'Aluno não encontrado');
+        }
     }
 
-    $aluno = Aluno::find($id);
+    public function update(Request $request, $id)
+    {
 
-    if ($aluno->exists()) {
-      $id = $request->id;
-      $aluno->nome = $request->nome;
-      $aluno->data_nascimento = $request->data_nascimento;
-      $aluno->telefone = $request->telefone;
-      $aluno->rg = $request->rg;
-      $aluno->cpf = $request->cpf;
-      $aluno->save();
-      return redirect()->route('aluno.index')->with('success', 'Aluno atualizado');
-    } else {
-      //Apresentar pop-pup de erro.
-      return view('alunos.edit');
+        $rules = [
+            'nome' => 'required|string|max:255',
+            'cpf' => 'required|cpf',
+            'rg'  => 'required',
+            'telefone' => 'required',
+            'data_nascimento' => 'required|date'
+        ];
+
+        $messages = [
+            'nome.required' => 'O campo nome é obrigatório',
+            'cpf.required' => 'O campo CPF é obrigatório',
+            'cpf.cpf' => 'O campo CPF deve ser preenchido com um CPF válido',
+            'rg.required' => 'O campo RG é obrigatório',
+            'telefone.required' => 'O campo telefone é obrigatório',
+            'data_nascimento.required' => 'O campo data de nascimento é obrigatório',
+            'data_nascimento.date' => 'O campo data de nascimento deve ser preenchido com uma data válida',
+        ];
+
+        $validate = Validator::make($request->all(), $rules, $messages);
+
+        if ($validate->fails()) {
+            return redirect()->back()->with('error', $validate->errors()->first());
+        }
+
+        $aluno = Aluno::find($id);
+
+        if ($aluno->exists()) {
+            $id = $request->id;
+            $aluno->nome = $request->nome;
+            $aluno->data_nascimento = $request->data_nascimento;
+            $aluno->telefone = $request->telefone;
+            $aluno->rg = $request->rg;
+            $aluno->cpf = $request->cpf;
+            $aluno->save();
+            return redirect()->route('aluno.index')->with('success', 'Aluno atualizado com sucesso');
+        } else {
+            return redirect()->route('alunos.edit')->with('error', 'Aluno não encontrado');
+        }
     }
-  }
 
-  public function delete($id)
-  {
-    $aluno = Aluno::find($id);
+    public function delete($id)
+    {
+        $aluno = Aluno::find($id);
 
-    if ($aluno->exists()) {
-      $aluno->delete();
-      return redirect()->route('aluno.index')->with('success', 'Aluno removido');
-    } else {
-      //Apresentar pop-pup de erro.
+        if ($aluno->exists()) {
+            $aluno->delete();
+            return redirect()->route('aluno.index')->with('success', 'Aluno removido com sucesso');
+        } else {
+            return redirect()->route('aluno.index')->with('error', 'Aluno não encontrado');
+        }
     }
-  }
 
-  public function updateStatus(Request $request)
-  {
-    if ($request->ajax()) {
-      $aluno = Aluno::findOrFail($request->id);
-      $aluno->status = $request->status;
-      $aluno->save();
-      return response()->json(["status" => "success"]);
+    public function updateStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $aluno = Aluno::findOrFail($request->id);
+            $aluno->status = $request->status;
+            $aluno->save();
+            return response()->json(["status" => "success"]);
+        }
     }
-  }
 }

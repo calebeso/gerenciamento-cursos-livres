@@ -38,7 +38,7 @@ class Aluno extends Model
 
     public function responsaveis()
     {
-        return $this->belongsToMany(Responsavel::class);
+        return $this->belongsToMany(Responsavel::class, 'responsavel_aluno');
     }
 
     public function turmas()
