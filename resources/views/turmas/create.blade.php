@@ -80,11 +80,11 @@
 @endsection
 @section('javascript')
 <script>
-/*function validardados(){
+function validardados(){
     var hi=document.getElementById("hr_inicio").value;
     var ht=document.getElementById("hr_termino").value;
     //alert ('Horários de início e término: '+hi+'/'+ht);
-}*/
+}
 $('#hr_inicio').mask('00:00');
 $('#hr_termino').mask('00:00');
 $(document).ready(function(){

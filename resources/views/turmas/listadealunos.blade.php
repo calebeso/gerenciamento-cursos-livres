@@ -22,13 +22,30 @@
                             <th scope="col">ID</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Data de nascimento</th>
+                            @if($turma->modalidade==='Interactive')
+                                <th scope="col">Livro</th>
+                            @endif
                             <th scope="col">Remover</th>
                         </tr>
+                    @php
+                        {{$indice=0;}}
+                    @endphp
                     @foreach($vetoralunos as $am)
                         <tr>
                             <th scope="col">{{$am->id}}</td>
                             <td>{{$am->nome}}</td>
                             <td>{{$am->data_nascimento}}</td>
+                            @if($turma->modalidade==='Interactive')
+                                <td>
+                                    <a href="{{ route('turma.vincularalunoalivro',['id'=>$turma->id,'idaluno'=>$am->id]) }}" class="edit-icon me-1">
+                                        <i class="icofont-ui-edit"></i>
+                                    </a>
+                                    {{$livroscadaaluno[$indice]}}
+                                    @php
+                                        {{$indice++;}}
+                                    @endphp
+                                </td>
+                            @endif
                             <td>
                                 <form class="d-inline-block" method="POST" action="{{ route('turma.desvincularaluno',['id'=>$turma->id,'idaluno'=>$am->id]) }}">
                                 @csrf
