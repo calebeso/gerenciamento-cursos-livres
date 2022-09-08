@@ -23,12 +23,12 @@ class Livro extends Model
 
     public function alunos()
     {
-        return $this->belongsToMany(Aluno::class);
+        return $this->belongsToMany(Aluno::class, 'livro_aluno', 'livro_id', 'aluno_id');
     }
 
     public function horasAula()
     {
-        return $this->belongsTo(HoraAula::class);
+        return $this->hasMany(HoraAula::class);
     }
     public function turmas(){
         return $this->hasMany(Turma::class,'turma_id','id');

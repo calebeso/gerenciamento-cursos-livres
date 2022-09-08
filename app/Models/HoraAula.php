@@ -9,6 +9,8 @@ class HoraAula extends Model
 {
     use HasFactory;
 
+    protected $table = 'hora_aula';
+
     protected $fillable = [
         'presenca',
         'tarefa',
@@ -25,18 +27,18 @@ class HoraAula extends Model
     ];
 
     public function diariosAula(){
-        return $this->hasMany(DiarioAula::class);
+        return $this->belongsTo(DiarioAula::class, 'diario_aula_id', 'id');
     }
 
     public function alunos(){
-        return $this->hasMany(Aluno::class);
+        return $this->belongsTo(Aluno::class, 'aluno_id', 'id');
     }
 
     public function livros(){
-        return $this->hasMany(Livro::class);
+        return $this->belongsTo(Livro::class, 'livro_id', 'id');
     }
 
     public function licoes(){
-        return $this->hasMany(Licao::class);
+        return $this->belongsTo(Licao::class, 'licao_id', 'id');
     }
 }

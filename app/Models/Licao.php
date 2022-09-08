@@ -22,6 +22,6 @@ class Licao extends Model
 
     public function horasAula()
     {
-        return $this->belongsTo(HoraAula::class);
+        return $this->hasMany(HoraAula::class);
     }
 }

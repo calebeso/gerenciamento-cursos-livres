@@ -2,9 +2,15 @@
 :root {
     --main-color: #002B4D;
     --main-color-hover: #01233d;
+    --second-main-color: #E73D36; 
     --delete-color: #F4485E;
     --delete-color-hover: #e92a44;
     --main-font: 'Poppins', sans-serif;
+    --text-sm: 0.875rem;
+}
+
+.main-color{
+    color: var(--main-color) !important;
 }
 
 /* Navbar */
@@ -180,9 +186,33 @@ input[type="search"]:focus-visible {
 
 .row.mb-0.custom2{
     padding-top: 12px;
+
+}
+/* Diários de Aula */
+#diarios tr{
+    height: 80px;
+}
+#diarios td{
+    text-align: center;
 }
 
-.col-xl-4.col-md-12{
+.text-sm{
+    font-size: var(--text-sm) !important;
+}
+
+.font-weight-700{
+    font-weight: 700;
+}
+
+.font-weight-600{
+    font-weight: 600;
+}
+
+.second-main-color{
+    color: var(--second-main-color);
+}
+
+    .col-xl-4.col-md-12{
     padding-bottom: 32px;
 }
 
