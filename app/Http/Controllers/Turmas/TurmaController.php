@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Turmas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Turma;
-/*AS LINHAS ABAIXO TALVEZ SEJAM NECESSÁRIAS NA VALIDAÇÃO?*/
-//OBS: SIM, necessarias para enviar dados para alimentar os selects na criação e edição
 use App\Models\User;
 use App\Models\Livro;
 use App\Models\Aluno;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 //use App\Models\Aluno;
 
 /**
@@ -66,11 +65,6 @@ class TurmaController extends Controller
         $turma->livros()->associate($livro);
         $turma->status="Em formação";
         $turma->save();
-        /*if($turma->modalide==='Connections'){
-            return redirect()->route('turma.infoconnections',$turma->id)->with('success', 'Turma connections criada com sucesso');;
-        }else if($turma->modalidade='Interactive'){
-            return redirect()->route('turma.infointeractive',$turma->id)->with('success', 'Turma interactive criada com sucesso');;
-        }*/
         $livros = Livro::all();
         return view('turmas.listadealunos',compact('turma','livros'));
         //return view('turmas.listadealunos')->with('turma',$turma);
@@ -179,12 +173,12 @@ class TurmaController extends Controller
         $turma = Turma::find($idturma);
         $turma->alunos()->detach($idaluno);
         $vetoralunos=$turma->alunos;
-        if($turma->modalidade==='Interactive'){
-            $livros = Livro::all();
+        /*if($turma->modalidade==='Interactive'){
             return view('turmas.listadealunos',compact('turma','vetoralunos','livros'));
         }else{
             return view('turmas.listadealunos',compact('turma','vetoralunos'));
-        }
+        }*/
+        return redirect()->route('turma.listadealunos',$turma->id);
     }
     public function vincularalunos(Request $request,$id){
         $vetor_alunos=$request->input('aluno_a_matricular');
@@ -202,49 +196,46 @@ class TurmaController extends Controller
             return view('turmas.index')->with('turmas' , $turmas);
         }else{
             $vetoralunos=$turma->alunos;
-            if($turma->modalidade==='Interactive'){
+            return redirect()->route('turma.listadealunos',$turma->id);
+            /*if($turma->modalidade==='Interactive'){
                 $livros = Livro::all();
                 return view('turmas.listadealunos',compact('turma','vetoralunos','livros'));
             }else{
                 return view('turmas.listadealunos',compact('turma','vetoralunos'));
-            }
+            }*/
         }       
     }
     
-    public function listadealunos(Request $request){
-        $turma = Turma::find($request->id);
+    public function listadealunos($id_turma){
+        $turma = Turma::find($id_turma);
         $alunosmatriculados=$turma->alunos;
-        //dd($alunosmatriculados->nome);
         $vetoralunos=Array();
+        $livroscadaaluno=Array();
+        $qtde_alunos=0;
         if(!empty($alunosmatriculados)){
             foreach($alunosmatriculados as $alunomatriculado){
-                //dd($alunomatriculado->nome);
-                //$vetoralunos=$alunomatriculado;
                 array_push($vetoralunos,$alunomatriculado);
+                $qtde_alunos++;
             }
-            /*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX*/
             foreach($vetoralunos as $va){
                 if(!empty($va->livros)){
                     $livroatual=$va->livros()->where('cursando',1)->first();
                     if(!empty($livroatual)){
-                        $va->rg=$livroatual->nome;
+                        array_push($livroscadaaluno,$livroatual->nome);
                     }else{
-                        $va->rg='Não está cursando nenhum livro';
+                        array_push($livroscadaaluno,'Não está cursando nenhum livro');
                     }
-                    //dd($livroatual->nome);
                 }
             }
         }else{
-            $vetoralunos='';
+            $vetoralunos=NULL;
         }
-        //dd($vetoralunos);
         if($turma->exists()){
-            //COMPACT CASO HAJAM ALUNOS
             if($turma->modalidade==='Interactive'){
                 $livros = Livro::all();
-                return view('turmas.listadealunos',compact('turma','vetoralunos','livros'));
+                return view('turmas.listadealunos',compact('turma','vetoralunos','qtde_alunos','livros','livroscadaaluno'));
             }else{
-                return view('turmas.listadealunos',compact('turma','vetoralunos'));
+                return view('turmas.listadealunos',compact('turma','vetoralunos','qtde_alunos'));
             }
         }else{
             $turmas = Turma::all();
@@ -268,52 +259,75 @@ class TurmaController extends Controller
         $livroatual=$aluno->livros()->where('cursando',1)->first();
         $it=$idturma;
         if(empty($livroatual)){
-            $livroatual=NULL;
             $qtdelivros=0;
-            //return view('turmas.atribuirlivro',compact('aluno','livroatual','livros'));
         }else{
             $qtdelivros=1;
         }
         return view('turmas.atribuirlivro',compact('aluno','livroatual','livros','qtdelivros','it'));
     }
     function alterarlivro(Request $request){
+        //dd($request);
         $it=$request->id_turma;
         $ia=$request->id_aluno;
         $iln=$request->livro_novo;
         $ila=$request->livro_atual;
+        
         $turma=Turma::find($it);
+        $aluno=Aluno::find($ia);
         $vetoralunos=$turma->alunos;
         $livros = Livro::all();
-        if($ila===$ila){ 
-            return view('turmas.listadealunos',compact('turma','vetoralunos','livros'))->with('error','O livro selecionado é o mesmo já vinculado ao aluno.');
+
+        $livroatual=$aluno->livros()->where(['aluno_id'=>$aluno->id,'cursando'=>1])->first();
+        if(empty($livroatual)){
+            $aluno->livros()->attach($iln);
+            DB::table('livro_aluno')
+                        ->where([
+                            'livro_id'=>$iln,
+                            'aluno_id'=>$ia])
+                        ->limit(1)
+                        ->update([
+                            'cursando'=>1]);
+            return redirect()->route('turma.listadealunos',$turma->id);
         }else{
-            $livronovo = Livro::find($iln);
-            if($livronovo->exists()){
-                /*A condição abaixo examina se a id do livro novo já consta na tabela associativa
-                para evitar inserções duplicadas*/
-                $ljv=$aluno->livros;
-                $repetidos=0;
-                foreach($ljv as $livrosalvo){
-                    if($livrosalvo->id===$iln){
-                        $repetidos=1;
-                    }
-                }
-                if($repetidos===0){
-                    $aluno->livros()->attach($iln);
-                }
-                DB::table('livro_aluno')
-                    ->where('livro_id',$iln)
-                    ->limit(1)
-                    ->update('cursando',1);
-                DB::table('livro_aluno')
-                    ->where('livro_id',$ila)
-                    ->limit(1)
-                    ->update('cursando',0);
+            if($iln===$ila){ 
+                //return view('turmas.listadealunos',compact('turma','vetoralunos','livros'))->with('error','O livro selecionado é o mesmo já vinculado ao aluno.');
+                return redirect()->route('turma.listadealunos',$turma->id);
             }else{
-                return redirect()->route('turma.index')->with('error', 'Livro não encontrado');
-            }
-            return view('turmas.listadealunos',compact('turma','vetoralunos','livros'))->with('succes','Livro alterado com sucesso!');
-        }   
+                $livronovo = Livro::find($iln);
+                if($livronovo->exists()){
+                    /*A condição abaixo examina se a id do livro novo já consta na tabela associativa
+                    para evitar inserções duplicadas*/
+                    $ljv=$aluno->livros;
+                    $repetidos=0;
+                    foreach($ljv as $livrosalvo){
+                        if($livrosalvo->id===$iln){
+                            $repetidos=1;
+                        }
+                    }
+                    if($repetidos===0){
+                        $aluno->livros()->attach($iln);
+                    }
+                    /*Alterando o atributo "cursando" dos livros antigos do aluno para 0 para depois alterar 
+                    o atual para 1*/
+                    DB::table('livro_aluno')
+                        ->where([
+                            'aluno_id'=>$ia])
+                        ->update([
+                            'cursando'=>0]);
+                    DB::table('livro_aluno')
+                        ->where([
+                            'livro_id'=>$iln,
+                            'aluno_id'=>$ia])
+                        ->limit(1)
+                        ->update([
+                            'cursando'=>1]);
+                    return redirect()->route('turma.listadealunos',$turma->id);
+                }else{
+                    return redirect()->route('turma.index')->with('error', 'Livro não encontrado');
+                }
+            } 
+        }
+        return redirect()->route('turma.listadealunos',$turma->id);
     }
 }
     

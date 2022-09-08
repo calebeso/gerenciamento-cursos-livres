@@ -27,6 +27,9 @@
                             @endif
                             <th scope="col">Remover</th>
                         </tr>
+                    @php
+                        {{$indice=0;}}
+                    @endphp
                     @foreach($vetoralunos as $am)
                         <tr>
                             <th scope="col">{{$am->id}}</td>
@@ -37,7 +40,10 @@
                                     <a href="{{ route('turma.vincularalunoalivro',['id'=>$turma->id,'idaluno'=>$am->id]) }}" class="edit-icon me-1">
                                         <i class="icofont-ui-edit"></i>
                                     </a>
-                                    {{$am->rg}}
+                                    {{$livroscadaaluno[$indice]}}
+                                    @php
+                                        {{$indice++;}}
+                                    @endphp
                                 </td>
                             @endif
                             <td>
