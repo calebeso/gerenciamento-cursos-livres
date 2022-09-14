@@ -139,6 +139,7 @@
 </div>
 @endsection
 @section('javascript')
+@include('includes.toastr')
 <script type="text/javascript">
     var route = "{{ url('autocomplete-search') }}";
 
