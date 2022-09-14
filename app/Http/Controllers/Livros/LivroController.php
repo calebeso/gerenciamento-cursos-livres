@@ -38,7 +38,7 @@ class LivroController extends Controller
         $validate = Validator::make($request->all(), $rules, $messages);
         
         if($validate->fails()){
-            return redirect()->back()->with('error', $validate->errors()->first());
+            return redirect()->back()->withErrors($validate)->withInput();
         }
         
         $livro = new Livro; 
@@ -79,7 +79,7 @@ class LivroController extends Controller
         $validate = Validator::make($request->all(), $rules, $messages);
         
         if($validate->fails()){
-            return redirect()->back()->with('error', $validate->errors()->first());
+            return redirect()->back()->withErrors($validate)->withInput();
         }
 
         $livro = Livro::find($id);
