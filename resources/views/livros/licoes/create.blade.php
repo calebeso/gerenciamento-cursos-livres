@@ -11,10 +11,9 @@
                         <form method="POST" action="{{ route('licoes.create', $livro_id) }}">
                             @csrf
                             <div class="row">
-                                <!-- Informações do Aluno -->
                                 <div class="col-md-12">
                                     <label for="inputName" class="form-label mt-4 mb-2">Nome</label>
-                                    <input type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" id="name">
+                                    <input type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" id="name" value="{{ old('nome') }}">
                                     @error('nome')
                                     <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
@@ -22,10 +21,16 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-success">Salvar</button>
+                    <div class="row mt-3">
+                        <div class="d-flex justify-content-start">
+                            <button type="submit" class="btn btn-success me-1">
+                                {{ __('Salvar') }}
+                            </button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                {{ __('Cancelar') }}
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
