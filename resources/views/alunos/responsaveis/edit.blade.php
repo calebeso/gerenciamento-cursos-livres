@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="inputName" class="form-label mt-4 mb-2">Nome</label>
-                    <input type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" id="name" value="{{ $responsavel->nome }}">
+                    <input type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" id="name" value="{{ $responsavel->nome }}" >
                     @error('nome')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

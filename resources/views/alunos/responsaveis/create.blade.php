@@ -13,21 +13,21 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="inputName" class="form-label mt-4 mb-2">Nome</label>
-                                    <input type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" id="name">
+                                    <input type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" id="name" value="{{ old('nome') }}">
                                     @error('nome')
                                     <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
                                 <div class="col-md-12">
                                     <label for="inputParentesco" class="form-label mt-4 mb-2">Parentesco</label>
-                                    <input type="text" class="form-control @error('parentesco') is-invalid @enderror" name="parentesco" id="parentesco">
+                                    <input type="text" class="form-control @error('parentesco') is-invalid @enderror" name="parentesco" id="parentesco" value="{{ old('parentesco') }}">
                                     @error('email')
                                     <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label for="inputTel" class="form-label mt-4 mb-2">Telefone</label>
-                                    <input type="text" class="form-control @error('telefone') is-invalid @enderror" id="telefone" name="telefone">
+                                    <input type="text" class="form-control @error('telefone') is-invalid @enderror" id="telefone" name="telefone" value="{{ old('telefone') }}">
                                     @error('telefone')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
