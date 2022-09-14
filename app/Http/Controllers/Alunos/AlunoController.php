@@ -7,11 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Models\{Aluno, Responsavel};
 use App\Http\Requests\StoreAlunoRequest;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Stmt\TryCatch;
 
 /**
  * Controller responsavel pela manipulação de alunos.
  * @author Eduardo Rezes
- * @version 1.0
+ * @version 1.1
  */
 class AlunoController extends Controller
 {
@@ -55,7 +56,7 @@ class AlunoController extends Controller
         $validate = Validator::make($request->all(), $rules, $messages);
 
         if ($validate->fails()) {
-            return redirect()->back()->with('error', $validate->errors()->first());
+            return redirect()->back()->withErrors($validate)->withInput();
         }
 
         $aluno = new Aluno();
@@ -82,8 +83,8 @@ class AlunoController extends Controller
     {
         $aluno = Aluno::find($id);
         if ($aluno->exists()) {
-      return view('alunos.edit')->with('aluno', $aluno);
-    } else {
+            return view('alunos.edit')->with('aluno', $aluno);
+        } else {
             return redirect()->route('aluno.index')->with('error', 'Aluno não encontrado');
         }
     }
@@ -112,7 +113,7 @@ class AlunoController extends Controller
         $validate = Validator::make($request->all(), $rules, $messages);
 
         if ($validate->fails()) {
-            return redirect()->back()->with('error', $validate->errors()->first());
+            return redirect()->back()->withErrors($validate)->withInput();
         }
 
         $aluno = Aluno::find($id);
@@ -136,10 +137,17 @@ class AlunoController extends Controller
         $aluno = Aluno::find($id);
 
         if ($aluno->exists()) {
-            $aluno->delete();
-            return redirect()->route('aluno.index')->with('success', 'Aluno removido com sucesso');
-        } else {
-            return redirect()->route('aluno.index')->with('error', 'Aluno não encontrado');
+            try {
+                $aluno->delete();
+                return redirect()->route('aluno.index')->with('success', 'Aluno removido com sucesso');
+            } catch (\Throwable $th) {
+                /**
+                 * Erro ao deletar aluno com responsaveis
+                 * Erro ao deletar aluno com turma vinculada
+                 */
+                //throw new Exception("Error Processing Request", 1);
+                return redirect()->route('aluno.index')->with('error', 'Erro ao deletar usuario');
+            }
         }
     }
 

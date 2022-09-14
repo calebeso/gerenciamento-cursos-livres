@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 /**
  * Controller responsavel pela manipulação de responsaveis.
  * @author Eduardo Rezes
- * @version 1.0
+ * @version 1.1
  */
 class ResponsavelController extends Controller
 {
@@ -41,7 +41,7 @@ class ResponsavelController extends Controller
         $validate = Validator::make($request->all(), $rules, $message);
         
         if($validate->fails()){
-            return redirect()->back()->with('error', $validate->errors()->first());
+            return redirect()->back()->withErrors($validate)->withInput();
         }
 
         $aluno = Aluno::find($id);
@@ -87,7 +87,8 @@ class ResponsavelController extends Controller
 
         if($validate->fails())
         {
-            return redirect()->back()->with('error', $validate->errors()->first());
+            //Verificar forma de retornar com modal CreateResponsavel aberta.
+            return redirect()->back()->withErrors($validate)->withInput();
         }
 
         $aluno = Aluno::find($id);
@@ -112,14 +113,16 @@ class ResponsavelController extends Controller
 
         if($aluno->exists())
         {
-            $responsavel = Responsavel::findOrFail($id);
-            //Desvincula o responsavel do aluno
-            $responsavel->alunos()->detach($aluno->id);
-            $responsavel->delete();
-            
-            return redirect()->route('responsavel.index', $aluno_id)->with('success', 'Responsável excluído com sucesso');
-        }else{
-            return redirect()->route('responsavel.index', $aluno_id)->with('error', 'Opss! Algo deu errado');
+            try {
+                $responsavel = Responsavel::findOrFail($id);
+                $responsavel->alunos()->detach($aluno->id);
+                $responsavel->delete();
+                
+                return redirect()->route('responsavel.index', $aluno_id)->with('success', 'Responsável excluído com sucesso');
+            } catch (\Throwable $th) {
+                throw $th;
+                return redirect()->route('responsavel.index', $aluno_id)->with('error', 'Opss! Algo deu errado');
+            }
         }
     }
 }

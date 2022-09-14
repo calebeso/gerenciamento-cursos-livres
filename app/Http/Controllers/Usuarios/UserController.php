@@ -20,7 +20,7 @@ class UserController extends Controller
     public function register()
     {
         $roles = Role::all();
-        return view('auth.register', compact('roles'));
+        return view('users.create', compact('roles'));
     }
 
     public function edit($id)

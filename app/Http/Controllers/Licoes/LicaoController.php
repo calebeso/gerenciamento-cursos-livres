@@ -32,7 +32,7 @@ class LicaoController extends Controller
         $validate = Validator::make($request->all(), $rules, $message);
         
         if($validate->fails()){
-            return redirect()->back()->with('error', $validate->errors()->first());
+            return redirect()->back()->withErrors($validate)->withInput();
         }
         
         $livro = Livro::find($id);
@@ -72,7 +72,7 @@ class LicaoController extends Controller
         $validate = Validator::make($request->all(), $rules, $message);
         
         if($validate->fails()){
-            return redirect()->back()->with('error', $validate->errors()->first());
+            return redirect()->back()->withErrors($validate)->withInput();
         }
 
         $livro = Livro::find($id);
