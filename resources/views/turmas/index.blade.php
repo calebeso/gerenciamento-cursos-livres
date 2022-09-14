@@ -86,7 +86,6 @@
                     <th scope="col">#</th>
                     <th scope="col">Modalidade</th>
                     <th scope="col">Idioma</th>
-                    <th scope="col">Livro</th>
                     <th scope="col">Professor(a)</th>
                     <th scope="col">Dias de aula</th>
                     <th scope="col">Horário início</th>
@@ -102,10 +101,6 @@
                     <th scope="row">{{ $turma->id }}</th>
                     <td>{{ $turma->modalidade }}</td>
                     <td>{{ $turma->idioma }}</td>
-                    <td>
-                        {{ $turma->livros == NULL ? ' ' : $turma->livros->nome }}
-
-                    </td>
                     <td>{{ $turma->users->name }}</td>
                     <td>{{ $turma->dias_semana}}</td>
                     <td>{{ $turma->hr_inicio }}</td>

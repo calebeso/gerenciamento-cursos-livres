@@ -119,9 +119,7 @@
         <button type="submit" class="btn btn-success me-1">
             {{ __('Salvar') }}
         </button>
-        <button class="btn btn-danger">
-            {{ __('Cancelar') }}
-        </button>
+        <a href="{{ route('turma.index') }}" class="btn btn-danger">{{ __('Cancelar') }}</a>
     </div>
 </div>
 </form> 

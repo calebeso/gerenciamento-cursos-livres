@@ -78,7 +78,7 @@ class TurmaController extends Controller
             if($turma->modalidade==='connections'){
                 $livros=Livro::all();
                 return view('turmas.edit-turma-connections',compact('turma','users','livros'));
-            }else if($turma->modalidade=='Interactive'){
+            }else if($turma->modalidade=='interactive'){
                 return view('turmas.edit-turma-interactive',compact('turma','users'));
             }else{
             
@@ -91,17 +91,16 @@ class TurmaController extends Controller
         if($turma->exists()){
             if($turma->modalidade=='connections'){
                 return view('turmas.infoconnections')->with('turma',$turma);
-            }else if($turma->modalidade=='Interactive'){
+            }else if($turma->modalidade=='interactive'){
                 return view('turmas.infointeractive')->with('turma',$turma);
             }
         }else{
-            return view('turmas.index')->with('turmas' , $turmas);
+            return view('turmas.index')->with('turmas' , $turma);
         }
     }
     
     public function update(Request $request, $id)
     {
-        //dd($request->all());
         $rules =  [
             'user' => 'required',
             'idioma' => 'required',
@@ -231,7 +230,7 @@ class TurmaController extends Controller
             $vetoralunos=NULL;
         }
         if($turma->exists()){
-            if($turma->modalidade==='Interactive'){
+            if($turma->modalidade==='interactive'){
                 $livros = Livro::all();
                 return view('turmas.listadealunos',compact('turma','vetoralunos','qtde_alunos','livros','livroscadaaluno'));
             }else{
