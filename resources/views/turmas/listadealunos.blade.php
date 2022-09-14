@@ -22,7 +22,7 @@
                             <th scope="col">ID</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Data de nascimento</th>
-                            @if($turma->modalidade==='Interactive')
+                            @if($turma->modalidade==='interactive')
                                 <th scope="col">Livro</th>
                             @endif
                             <th scope="col">Remover</th>
@@ -35,7 +35,7 @@
                             <th scope="col">{{$am->id}}</td>
                             <td>{{$am->nome}}</td>
                             <td>{{$am->data_nascimento}}</td>
-                            @if($turma->modalidade==='Interactive')
+                            @if($turma->modalidade==='interactive')
                                 <td>
                                     <a href="{{ route('turma.vincularalunoalivro',['id'=>$turma->id,'idaluno'=>$am->id]) }}" class="edit-icon me-1">
                                         <i class="icofont-ui-edit"></i>
